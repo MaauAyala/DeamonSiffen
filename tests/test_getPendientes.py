@@ -1,12 +1,21 @@
-from domain.repositories.doc_repo import DocumentoRepo
-from core.database import get_db
+from core.eventBuilder import eventBuilder
 
-def test_getPendientes():
-    db = next(get_db())
+# Crear instancia
+builder = eventBuilder()
+
+# Llamar método
+try:
+    strr = builder.build()  # Si build() no tiene parámetros
+    # O si tiene parámetro:
+    # strr = builder.build(algun_evento)
     
-    repo = DocumentoRepo(db)
+    print("=== XML GENERADO ===")
+    print(strr)
+    print(f"Longitud: {len(strr)} caracteres")
+    print(f"Tipo: {type(strr)}")
     
-    pendientes = repo.getPendiente()
-    
-    for de in pendientes:
-        print(de.id)
+except TypeError as e:
+    print(f"Error de tipo: {e}")
+    print("Probablemente build() requiere un parámetro")
+except Exception as e:
+    print(f"Error: {e}")
