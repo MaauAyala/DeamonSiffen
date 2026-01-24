@@ -14,7 +14,8 @@ def sendEvento(client: SOAPClient,rde_xml_bytes: bytes, numdoc: int):
     # Quitar BOM si existe
     if rde_xml_bytes.startswith(b'\xef\xbb\xbf'):
         rde_xml_bytes = rde_xml_bytes[3:]
-
+    
+    
     dId = str(numdoc).zfill(7).encode("utf-8")
 
     # Construir SOAP sin tocar el rDE firmado

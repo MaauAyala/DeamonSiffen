@@ -450,7 +450,7 @@ class XMLBuilder:
         urlqr = os.environ["URL_QR"]
         
         url_final = (
-            {urlqr}
+             urlqr
             + datos_qr +
             f"&cHashQR={hashQR}"
         )

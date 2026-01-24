@@ -6,10 +6,12 @@ from core.database import get_db
 from core.soap_client import SOAPClient
 from core.enviDE import sendDE
 from core.consultaRuc import consultaRuc
+from services.response_service import guardarResponse
+from services.lote_service import LoteService
 
 
 def test_generar_xml():
-    id_test = 91
+    id_test = 94
     output_dir = "tests/output"
     os.makedirs(output_dir, exist_ok=True)
 
@@ -26,13 +28,13 @@ def test_generar_xml():
     print("TIMBRADO ITIDE:", doc.timbrado.itide ,doc.timbrado.ddestide,"Numerodoc: ",doc.dnumdoc)
 
     xml_bytes = XMLBuilder().build(doc)
-    soap_endpoint = "https://sifen.set.gov.py/de/ws/sync/recibe.wsd"  # endpoint SIFEN real
     cert_path = r"C:\Users\mauri\credenciales\certificado.pem"
     key_path = r"C:\Users\mauri\clave_privada_desenc.pem"  # passphrase si tu key está encriptada
-
+    print(xml_bytes.decode("utf-8"))
     soap_client = SOAPClient(cert_path, key_path,True)
-    response = sendDE(soap_client,xml_bytes,doc.dnumdoc)
+    response = LoteService.rEnvioLote(soap_client,xml = xml_bytes ,id=1)
     print(response)
+    guardarResponse(response.text,db,id_test)
     #response = consultaRuc(soap_client,"5671440","1")
     #print(response)
 
