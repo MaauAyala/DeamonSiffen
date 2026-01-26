@@ -62,6 +62,5 @@ class LoteService:
           b'</soap:Envelope>'
       )
       
-      # 6. Enviar (ajusta el endpoint según corresponda para lotes)
-      print(soap_bytes)
+
       return client.send(endpoint, soap_bytes)

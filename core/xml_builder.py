@@ -80,7 +80,7 @@ class XMLBuilder:
         xml_unsigned = ET.tostring(DE, encoding="utf-8", pretty_print=False, xml_declaration=False)
         
         try:
-            signature_node, digest_value = signxml(xml_unsigned)
+            signature_node, digest_value_b64 = signxml(xml_unsigned)
         except Exception as e:
             raise Exception(f"Fallo durante la firma XML o extracción del DigestValue: {e}")
 
@@ -90,7 +90,7 @@ class XMLBuilder:
         rDE.append(signature_node)
         
                 # 2. CONSTRUIR <gCamFuFD> (y <rQR>) usando el DigestValue
-        self._build_gCamFuFD(rDE, doc, digest_value)
+        self._build_gCamFuFD(rDE, doc, digest_value_b64)
         
         # 4. Serializar y retornar el XML COMPLETO Y FIRMADO CON declaración XML
         xml_signed = ET.tostring(rDE, encoding="utf-8", xml_declaration=False, pretty_print=False)
@@ -407,7 +407,7 @@ class XMLBuilder:
         ET.SubElement(gCamNCDE, "dPunExp").text = safe_get(nc, "dpunexp_ref")
         ET.SubElement(gCamNCDE, "dNumDoc").text = safe_get(nc, "dnumdoc_ref")
         
-    def _build_gCamFuFD(self, rDE, doc, digest_value):
+    def _build_gCamFuFD(self, rDE, doc, digest_value_b64):
         gCamFuFD = ET.SubElement(rDE, "gCamFuFD")
 
         # ---- parámetros obligatorios del QR ----
@@ -424,7 +424,7 @@ class XMLBuilder:
         dTotIVA = to_int_if_possible(safe_get(totales, "dtotiva", "0") if totales else "0")
         items = getattr(doc, "items", [])
         cItems = str(len(items))
-        DigestValue = (digest_value).encode().hex()
+        DigestValue = (digest_value_b64).encode().hex()
         IdCSC = "0001"  # siempre fijo en TEST  
 
         # ---- construir URL QR ----
@@ -440,11 +440,11 @@ class XMLBuilder:
             f"IdCSC={IdCSC}"
         )
         
-        
+
         CSC = os.environ["CSC"]
 
         cadena_hash = datos_qr + CSC
-        hashQR = sha256_hash_bytes(cadena_hash.encode("utf-8"))
+        hash_bytes = sha256_hash_bytes((cadena_hash).encode("utf-8"))
         # validar test y prod para mdoificar el url del qr
         
         urlqr = os.environ["URL_QR"]
@@ -452,7 +452,7 @@ class XMLBuilder:
         url_final = (
              urlqr
             + datos_qr +
-            f"&cHashQR={hashQR}"
+            f"&cHashQR={hash_bytes}"
         )
 
         ET.SubElement(gCamFuFD, "dCarQR").text = url_final

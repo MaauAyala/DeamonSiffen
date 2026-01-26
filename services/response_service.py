@@ -4,7 +4,7 @@ from domain.models.models import Estado
 import xml.etree.ElementTree as ET
 import html
 
-def guardarResponse(xml_string: str, db: Session, documento_id: int) -> Estado:
+def getResponse(xml_string: str, db: Session, documento_id: int) -> Estado:
     """
     Guarda la respuesta XML del SIFEN en la tabla de estados.
     

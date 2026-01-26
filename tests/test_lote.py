@@ -9,11 +9,11 @@ from core.consultaRuc import consultaRuc
 from services.response_service import getResponse
 from services.lote_service import LoteService
 from core.xml_builder_lote import XMLBuilderLote
-from core.enviDE import sendDE
 
 
 def test_generar_xml():
-    id_test = 94
+    id_test = 96
+    #id_2 = 96
     output_dir = "tests/output"
     os.makedirs(output_dir, exist_ok=True)
 
@@ -22,6 +22,7 @@ def test_generar_xml():
 
     repo = DocumentoRepo(db)
     doc = repo.getDE(id_test)
+    #doc2 = repo.getDE(id_2)
     
     if not doc:
         raise ValueError(f"No se encontró el documento con id {id_test}")
@@ -29,10 +30,13 @@ def test_generar_xml():
     print("TIMBRADO ITIDE:", doc.timbrado.itide ,doc.timbrado.ddestide,"Numerodoc: ",doc.dnumdoc)
 
     xml_bytes = XMLBuilder().build(doc)
-
+    #xml2 = XMLBuilder().build(doc2)
+    rdlist=[xml_bytes]  
+    builder = XMLBuilderLote()
+    rLoteDE =builder.build_lote(rde_list =rdlist)
     # Guardar el XML individual
     with open("tests/output/onlyxml.xml", "wb") as f:
-        f.write(xml_bytes)
+        f.write(rLoteDE)
     
     # Configurar cliente SOAP
     cert_path = r"C:\Users\mauri\credenciales\certificado.pem"
@@ -42,7 +46,7 @@ def test_generar_xml():
     
     # Enviar como lote
     print("\n=== ENVIANDO COMO LOTE ===")
-    response = sendDE(soap_client, xml_bytes,numdoc=id_test)
+    response = LoteService.rEnvioLote(soap_client, rLoteDE, id=1)
     
     #getResponse(response.text,db,94)
     

@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rLoteDE xmlns="http://ekuatia.set.gov.py/sifen/xsd">
+  <rDE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ekuatia.set.gov.py/sifen/xsd siRecepDE_v150.xsd">
+    <dVerFor>150</dVerFor>
+    <DE Id="01048496782001001000000322026012611309459320">
+      <dDVId>0</dDVId>
+      <dFecFirma>2026-01-26T11:11:41</dFecFirma>
+      <dSisFact>1</dSisFact>
+      <gOpeDE>
+        <iTipEmi>1</iTipEmi>
+        <dDesTipEmi>Normal</dDesTipEmi>
+        <dCodSeg>130945932</dCodSeg>
+      </gOpeDE>
+      <gTimb>
+        <iTiDE>1</iTiDE>
+        <dDesTiDE>Factura electrónica</dDesTiDE>
+        <dNumTim>18583670</dNumTim>
+        <dEst>001</dEst>
+        <dPunExp>001</dPunExp>
+        <dNumDoc>0000003</dNumDoc>
+        <dFeIniT>2025-11-25</dFeIniT>
+      </gTimb>
+      <gDatGralOpe>
+        <dFeEmiDE>2026-01-26T11:11:42</dFeEmiDE>
+        <gOpeCom>
+          <iTipTra>1</iTipTra>
+          <dDesTipTra>Venta de mercadería</dDesTipTra>
+          <iTImp>1</iTImp>
+          <dDesTImp>IVA</dDesTImp>
+          <cMoneOpe>PYG</cMoneOpe>
+          <dDesMoneOpe>Guarani</dDesMoneOpe>
+        </gOpeCom>
+        <gEmis>
+          <dRucEm>4849678</dRucEm>
+          <dDVEmi>2</dDVEmi>
+          <iTipCont>2</iTipCont>
+          <cTipReg>2</cTipReg>
+          <dNomEmi>ALDO ADRIANO AYALA SOSA</dNomEmi>
+          <dNomFanEmi>Aldo</dNomFanEmi>
+          <dDirEmi>TENIENTE SOLIS ESQUINA TEMBETARY</dDirEmi>
+          <dNumCas>4850</dNumCas>
+          <cDepEmi>1</cDepEmi>
+          <dDesDepEmi>CAPITAL</dDesDepEmi>
+          <cDisEmi>1</cDisEmi>
+          <dDesDisEmi>ASUNCION (DISTRITO)</dDesDisEmi>
+          <cCiuEmi>1</cCiuEmi>
+          <dDesCiuEmi>ASUNCION (DISTRITO)</dDesCiuEmi>
+          <dTelEmi>0971396795</dTelEmi>
+          <dEmailE>ALDO.ADRIANO.AYALA@GMAIL.COM</dEmailE>
+          <dDenSuc>Orange</dDenSuc>
+          <gActEco>
+            <cActEco>74909</cActEco>
+            <dDesActEco>OTRAS ACTIVIDADES PROFESIONALES, CIENTÍFICAS Y TÉCNICAS N.C.P.</dDesActEco>
+          </gActEco>
+          <gActEco>
+            <cActEco>47412</cActEco>
+            <dDesActEco>COMERCIO AL POR MENOR DE EQUIPOS DE TELECOMUNICACIONES</dDesActEco>
+          </gActEco>
+        </gEmis>
+        <gDatRec>
+          <iNatRec>1</iNatRec>
+          <iTiOpe>1</iTiOpe>
+          <cPaisRec>PRY</cPaisRec>
+          <dDesPaisRe>Paraguay</dDesPaisRe>
+          <iTiContRec>1</iTiContRec>
+          <dRucRec>4973869</dRucRec>
+          <dDVRec>0</dDVRec>
+          <dNomRec>Angel Camacho</dNomRec>
+          <dCelRec>0971746382</dCelRec>
+          <dEmailRec>adc.3191@gmail.com</dEmailRec>
+        </gDatRec>
+      </gDatGralOpe>
+      <gDtipDE>
+        <gCamFE>
+          <iIndPres>1</iIndPres>
+          <dDesIndPres>Operación presencial</dDesIndPres>
+        </gCamFE>
+        <gCamCond>
+          <iCondOpe>1</iCondOpe>
+          <dDCondOpe>Contado</dDCondOpe>
+          <gPaConEIni>
+            <iTiPago>1</iTiPago>
+            <dDesTiPag>Efectivo</dDesTiPag>
+            <dMonTiPag>150000.0000</dMonTiPag>
+            <cMoneTiPag>PYG</cMoneTiPag>
+            <dDMoneTiPag>Guarani</dDMoneTiPag>
+          </gPaConEIni>
+        </gCamCond>
+        <gCamItem>
+          <dCodInt>001</dCodInt>
+          <dDesProSer>Auricular JBL</dDesProSer>
+          <cUniMed>77</cUniMed>
+          <dDesUniMed>UNI</dDesUniMed>
+          <dCantProSer>1.00</dCantProSer>
+          <gValorItem>
+            <dPUniProSer>150000.00</dPUniProSer>
+            <dTotBruOpeItem>150000.00</dTotBruOpeItem>
+            <gValorRestaItem>
+              <dDescItem>0.00</dDescItem>
+              <dPorcDesIt>0.00</dPorcDesIt>
+              <dDescGloItem>0.00</dDescGloItem>
+              <dTotOpeItem>150000.00</dTotOpeItem>
+            </gValorRestaItem>
+          </gValorItem>
+          <gCamIVA>
+            <iAfecIVA>1</iAfecIVA>
+            <dDesAfecIVA>Gravado IVA</dDesAfecIVA>
+            <dPropIVA>100.00</dPropIVA>
+            <dTasaIVA>10</dTasaIVA>
+            <dBasGravIVA>136363.64</dBasGravIVA>
+            <dLiqIVAItem>13636.36</dLiqIVAItem>
+            <dBasExe>0</dBasExe>
+          </gCamIVA>
+        </gCamItem>
+      </gDtipDE>
+      <gTotSub>
+        <dSubExe>0.00</dSubExe>
+        <dSubExo>0.00</dSubExo>
+        <dSub5>0.00</dSub5>
+        <dSub10>150000.00</dSub10>
+        <dTotOpe>150000.00</dTotOpe>
+        <dTotDesc>0.00</dTotDesc>
+        <dTotDescGlotem>0.00</dTotDescGlotem>
+        <dTotAntItem>0.00</dTotAntItem>
+        <dTotAnt>0.00</dTotAnt>
+        <dPorcDescTotal>0.00000000</dPorcDescTotal>
+        <dDescTotal>0.00</dDescTotal>
+        <dAnticipo>0.00</dAnticipo>
+        <dRedon>0.00</dRedon>
+        <dComi>0</dComi>
+        <dTotGralOpe>150000.00</dTotGralOpe>
+        <dIVA5>0</dIVA5>
+        <dIVA10>13636.36</dIVA10>
+        <dTotIVA>13636.36</dTotIVA>
+        <dBaseGrav5>0</dBaseGrav5>
+        <dBaseGrav10>136363.64</dBaseGrav10>
+        <dTBasGraIVA>136363.64</dTBasGraIVA>
+      </gTotSub>
+    </DE>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+        <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+        <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+        <Reference URI="#01048496782001001000000322026012611309459320">
+          <Transforms>
+            <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          </Transforms>
+          <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+          <DigestValue>YdJTTW4r4Zod0+bDYmG/3hlolp5hQnKLVfvHahL7bwM=</DigestValue>
+        </Reference>
+      </SignedInfo>
+      <SignatureValue>f61hAUuM1nx0Cw8mGRpCwQZ5Dnr5GivrjwXbmLKdzwXRZc7gJdK+KzLmZ9W3hxDZDhkD68Ny6hBi74KJ/0zZbSpjOqoKE1Fwj2djOP5Stj9KOmwcfoXKJxcmCAhO+9VLqkzZxEOLw76nWXRcBc9urDU1/VKzPWeDZQaL1gghzu8NY9kdEJJx03XmIvHLD6YHyp2CU9+Syr0TpQcBvsPAd703oTRf5uNcJsgiWROjBE6N3N/yUBosptVDgGdoxpucoNRGB7hQ5P8LnxnQKZPUWt+5Fvy/aIr6Pun4vGz9inu0hmt2ziIa8WbO9ysWHhI7f7ud6jTBeYJcjaLva2+UAw==</SignatureValue>
+      <KeyInfo>
+        <X509Data>
+          <X509Certificate>MIIH7zCCBdegAwIBAgIRAJjEdTOKjQ+dRp5i8ysL22cwDQYJKoZIhvcNAQELBQAw
+gYUxCzAJBgNVBAYTAlBZMQ0wCwYDVQQKEwRJQ1BQMTgwNgYDVQQLEy9QcmVzdGFk
+b3IgQ3VhbGlmaWNhZG8gZGUgU2VydmljaW9zIGRlIENvbmZpYW56YTEVMBMGA1UE
+AxMMQ09ERTEwMCBTLkEuMRYwFAYDVQQFEw1SVUM4MDA4MDYxMC03MB4XDTI1MTEy
+NTE4MTUxOFoXDTI2MTEyNTE4MTUxOFowgakxCzAJBgNVBAYTAlBZMSswKQYDVQQK
+EyJDRVJUSUZJQ0FETyBDVUFMSUZJQ0FETyBUUklCVVRBUklPMQswCQYDVQQLEwJG
+MTETMBEGA1UEBBMKQVlBTEEgU09TQTEVMBMGA1UEKhMMQUxETyBBRFJJQU5PMSAw
+HgYDVQQDExdBTERPIEFEUklBTk8gQVlBTEEgU09TQTESMBAGA1UEBRMJQ0k0ODQ5
+Njc4MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmtHnLsne5PQ7jJ9O
+dap18bp5gLgYoiJgVG3UxgcVZ6PQFtiHNygQESUoj9I+e77RJ4wDyXk4cua3d35H
+F4nND7NKNaA0Y0V9g+I4Rpfuo+CkVRBxrenKTxvy1rcKij5pcOPaVII1UhcDj+O4
+659NcQ7UEPiJSfMLrCbZoXYWrXvnFIbd51NV2jIbh4eUSZ3uMOOGr+cxyW5k3MIv
+TQqjy+57W56dBY9Bqs2i0xmatuMxJbwY8S6jhVM/EUgy5e+5NgZDPcdsMdAXm9N5
+yTkMT1CcsKvh4vJN5pFLpgUX87AYQbiKkSeL9RwgIHrgyw98J0bWknkTjXRxL1fL
+AiszLQIDAQABo4IDMjCCAy4wDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUZWtIUav3
+IOQwcPTU+9R5O7kFMx4wHwYDVR0jBBgwFoAUvjVUYmhg5ybTMcFfl7Hi9mTOB/Uw
+DgYDVR0PAQH/BAQDAgXgMIGoBgNVHREEgaAwgZ2BHEFMRE8uQURSSUFOTy5BWUFM
+QUBHTUFJTC5DT02kfTB7MSAwHgYDVQQKExdBWUFMQSBTT1NBIEFMRE8gQURSSUFO
+TzEUMBIGA1UEDBMLUFJPUElFVEFSSU8xKjAoBgNVBA0MIUZJUk1BIEVMRUNUUsOT
+TklDQSBkZSBuaXZlbCBtZWRpbzEVMBMGA1UEBRMMUlVDNDg0OTY3OC0yMIH3BgNV
+HSAEge8wgewwgekGCysGAQQBg65wAQEEMIHZMEYGCCsGAQUFBwIBFjpodHRwczov
+L2NvZGUxMDAuY29tLnB5L3JlcG9zaXRvcmlvLWRlLWRvY3VtZW50b3MtcHVibGlj
+b3MvMIGOBggrBgEFBQcCAjCBgQx/Y2VydGlmaWNhZG8gY3VhbGlmaWNhZG8gZGUg
+ZmlybWEgZWxlY3Ryw7NuaWNhIHRpcG8gRjEgc3VqZXRhIGEgbGFzIGNvbmRpY2lv
+bmVzIGRlIHVzbyBleHB1ZXN0YXMgZW4gbGEgRFBDIGRlbCBQQ1NDIENPREUxMDAg
+Uy5BLjB7BgNVHR8EdDByMDegNaAzhjFodHRwOi8vcGNhMS5jb2RlMTAwLmNvbS5w
+eS9jcmxzL2NhLWNvZGUxMDAtc2EuY3JsMDegNaAzhjFodHRwOi8vcGNhMi5jb2Rl
+MTAwLmNvbS5weS9jcmxzL2NhLWNvZGUxMDAtc2EuY3JsMCAGA1UdJQEB/wQWMBQG
+CCsGAQUFBwMCBggrBgEFBQcDATCBiQYIKwYBBQUHAQEEfTB7MDkGCCsGAQUFBzAB
+hi1odHRwOi8vb2NzcC5jb2RlMTAwLmNvbS5weS9vY3NwL2NhLWNvZGUxMDAtc2Ew
+PgYIKwYBBQUHMAKGMmh0dHA6Ly9wY2ExLmNvZGUxMDAuY29tLnB5L2NlcnRzL2Nh
+LWNvZGUxMDAtc2EuY2VyMA0GCSqGSIb3DQEBCwUAA4ICAQC8tVjcKhb8oMJpCjTs
+hqy30E5gXuoVWRyEW+GGO6MZkdjniLi3rzH/6TJQbKurHLThdSOf+m2HBufqdzvU
+sWjd98pxf2P2FVR9Gr5bNynC3qJtiaLj95n0sM0IEztOSYiyQIT+FbMBSJ1n7GHC
+ms0dLC51HeMVqzwiZNWkrJw4RZ0EiHaA5WbdoFcsiidQ7Z+3jlPmTg8fuD0L2tWH
+VeV2MNfeXKAFN+UoLNm6X1SSx7qeu6uWkPGa/z23Gy2yDwA3/cvgNIovAe/2Kx4C
+Wq7ajdcbvVCvgKGYl/kUMInONSdN28a9RD0tcjk1yoRUTYBf/1Pg4xCC/HX7yuPY
+I5bWdvA3OBibfmQQEp9PRWs4KmLSccfN/EnkV8gOsdFpgcTRaYaGheR0QDZtm8Ls
+gPDbb2zKRpsZ4jg8wNhDJKXQ5M3x4w/06E91E9tfw8dEYdhz9NFMlAQQfLB0arfD
+3PqrsmxmZrQhwYOdLSnInjpOD2sjxsziazeg0ZC5WiYMgDPrAquCsJ5jpasTmipZ
+TAbPNMnbC1SI6JhGDnT4hHsq/lQV6NU1ulnfglK/tTed6aQ273K7aV+BXKKJ4tbg
+HYR+iTjrHoJhbIY2Pk54ROKwAOxtGmocA/3y8w4f0phjt7NNziN0a/ltEx4dqQxE
+X7lIFvQuLvtOCvQL4zZRwUQgmw==
+</X509Certificate>
+          <X509IssuerSerial>
+            <X509IssuerName>2.5.4.5=RUC80080610-7,CN=CODE100 S.A.,OU=Prestador Cualificado de Servicios de Confianza,O=ICPP,C=PY</X509IssuerName>
+            <X509SerialNumber>203062722669019418002127427782526622567</X509SerialNumber>
+          </X509IssuerSerial>
+        </X509Data>
+      </KeyInfo>
+    </Signature>
+    <gCamFuFD>
+      <dCarQR>https://ekuatia.set.gov.py/consultas/qr?nVersion=150&amp;Id=01048496782001001000000322026012611309459320&amp;dFeEmiDE=323032362d30312d32365431313a31313a3432&amp;dRucRec=4973869&amp;dTotGralOpe=150000.00&amp;dTotIVA=13636.36&amp;cItems=1&amp;DigestValue=59644a5454573472345a6f64302b6244596d472f33686c6f6c703568516e4b4c5666764861684c3762774d3d&amp;IdCSC=0001&amp;cHashQR=5ddca324b2a382ccd83c6c2f4ad2cb29f0327715845f280746ea387077884483</dCarQR>
+    </gCamFuFD>
+  </rDE>
+</rLoteDE>

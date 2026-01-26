@@ -7,20 +7,20 @@ class XMLBuilderLote:
 
     def build_lote(self, rde_list):
         
-        nsmap = {None: self.NS, "xsi": self.XSI}
-        rEnvLoteDE = etree.Element("rEnvLoteDE", nsmap=nsmap)
-        rEnvLoteDE.set(f"{{{self.XSI}}}schemaLocation", self.SCHEMA_LOC)
+        nsmap = {None: self.NS} # "xsi": self.XSI#
+        rLoteDE = etree.Element("rLoteDE", nsmap=nsmap)
+        #rLoteDE.set(f"{{{self.XSI}}}schemaLocation", self.SCHEMA_LOC)
 
-        # versión del formato
-        etree.SubElement(rEnvLoteDE, "dVerFor").text = "150"
+        # # versión del formato
+        # etree.SubElement(rEnvLoteDE, "dVerFor").text = "150"
 
         # agregar los <rDE> firmados
         for rde_xml in rde_list:
-            rde_node = etree.fromstring(rde_xml.decode("utf-8"))
-            rEnvLoteDE.append(rde_node)
+            rde_node = etree.fromstring(rde_xml)
+            rLoteDE.append(rde_node)
 
         return etree.tostring(
-            rEnvLoteDE,
+            rLoteDE,
             pretty_print=True,
             xml_declaration=True,
             encoding="utf-8"
