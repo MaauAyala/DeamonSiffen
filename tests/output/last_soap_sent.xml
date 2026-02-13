@@ -1,1 +1,11 @@
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Header/><soap:Body><rEnviConsDeRequest xmlns="http://ekuatia.set.gov.py/sifen/xsd"><dId>0000001</dId><dCDC>01048496782001001000000322026012611309459320</dCDC></rEnviConsDeRequest></soap:Body></soap:Envelope>
+<?xml version="1.0" encoding="UTF-8"?>
+    <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Header/>
+    <soap:Body>
+        <rEnviConsLoteDe xmlns="http://ekuatia.set.gov.py/sifen/xsd">
+        <dId>1</dId>
+        <dProtConsLote>5586437372040580010</dProtConsLote>
+        </rEnviConsLoteDe>
+    </soap:Body>
+    </soap:Envelope>
+    

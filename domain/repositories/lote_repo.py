@@ -3,7 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 import logging
-from models import Lote, LoteDocumento, Documento
+from domain.models.models import Lote, LoteDocumento, Documento
 
 logger = logging.getLogger(__name__)
 

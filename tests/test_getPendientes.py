@@ -1,4 +1,4 @@
-from core.eventBuilder import eventBuilder
+from core.infraestructure.xml.eventBuilder import eventBuilder
 
 # Crear instancia
 builder = eventBuilder()

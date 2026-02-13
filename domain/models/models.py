@@ -1,12 +1,15 @@
 from sqlalchemy import Column, Integer, String, Date, Numeric,Boolean , ForeignKey, SmallInteger, TIMESTAMP, func, Text
 from sqlalchemy.orm import relationship, declarative_base
-from core.database import Base
+from core.infraestructure.database.database import Base
+
+
 
 
 class Documento(Base):
     __tablename__ = "de_documento"
     id = Column(Integer, primary_key=True, index=True)
-    cdc_de = Column(String(44), unique=True , nullable=False)
+    cdc_de = Column(String(44), unique=True , nullable=True)
+    tipo_doc = Column(String(10))
     dverfor = Column(Integer)
     ddvid = Column(Integer)
     dfecfirma = Column(TIMESTAMP)
@@ -18,11 +21,17 @@ class Documento(Base):
     intentos_consulta = Column(Integer, default=0)
     dserienum = Column(String(2))
     drucem = Column(String(8))
-    idtimbrado = Column(Integer)
+    id_emisor = Column(Integer, ForeignKey("de_emisor.id"))
+    idtimbrado = Column(Integer, ForeignKey("de_timbrado.id"))
+    prot_aut = Column(String(20))
+    cod_res = Column(String(8))
+    msg_res = Column(String(100))
     #iIndPres = Column(Integer)
     #dDesIndPres = Column(String(20))
 
     # Relaciones 
+    emisor = relationship("Emisor", back_populates="documentos") 
+    timbrado = relationship("Timbrado") 
     operacion = relationship("Operacion", back_populates="documento", uselist=False)
     receptor = relationship("Receptor", back_populates="documento", uselist=False)
     items = relationship("Item", back_populates="documento")
@@ -35,7 +44,7 @@ class Documento(Base):
     lotes = relationship("LoteDocumento", back_populates="documento")
     
 
-
+    
 class Operacion(Base):
     __tablename__ = "de_operacion"
     id = Column(Integer, primary_key=True)
@@ -73,31 +82,29 @@ class Timbrado(Base):
 class Emisor(Base):
     __tablename__ = "de_emisor"
     id = Column(Integer, primary_key=True)
-    
-    # Campos según especificación D100-D129
-    drucem = Column(String(8), nullable=False)  # D101: RUC (3-8 caracteres)
-    ddvemi = Column(SmallInteger, nullable=False)  # D102: Dígito verificador
-    itipcont = Column(SmallInteger, nullable=False)  # D103: Tipo contribuyente (1,2)
-    ctipreg = Column(SmallInteger)  # D104: Tipo régimen (1-2 dígitos) - OPCIONAL
-    dnomemi = Column(String(255), nullable=False)  # D105: Nombre/Razón social
-    dnomfanemi = Column(String(255))  # D106: Nombre fantasía (opcional)
-    ddiremi = Column(String(255), nullable=False)  # D107: Dirección principal
-    dnumcas = Column(String(6), nullable=False)  # D108: Número casa (1-6 caracteres)
-    dcompdir1 = Column(String(255))  # D109: Complemento dirección 1 (opcional)
-    dcompdir2 = Column(String(255))  # D110: Complemento dirección 2 (opcional)
-    cdepemi = Column(SmallInteger, nullable=False)  # D111: Código departamento
-    ddesdepemi = Column(String(16), nullable=False)  # D112: Descripción departamento (6-16 chars)
-    cdisemi = Column(SmallInteger)  # D113: Código distrito (opcional)
-    ddesdisemi = Column(String(30))  # D114: Descripción distrito (opcional)
-    cciuemi = Column(SmallInteger, nullable=False)  # D115: Código ciudad emisión
-    ddesciuemi = Column(String(30), nullable=False)  # D116: Descripción ciudad emisión
-    
-    # Campos adicionales según especificación
-    dtelemi = Column(String(15), nullable=False)  # D117: Teléfono (6-15 caracteres)
-    demaile = Column(String(80), nullable=False)  # D118: Email (3-80 caracteres)
-    ddensuc = Column(String(30))  # D119: Denominación comercial sucursal (opcional)
-    
+    drucem = Column(String(8), nullable=False)
+    ddvemi = Column(SmallInteger, nullable=False)
+    itipcont = Column(SmallInteger, nullable=False)
+    ctipreg = Column(SmallInteger)
+    dnomemi = Column(String(255), nullable=False)
+    dnomfanemi = Column(String(255))
+    ddiremi = Column(String(255), nullable=False)
+    dnumcas = Column(String(6), nullable=False)
+    dcompdir1 = Column(String(255))
+    dcompdir2 = Column(String(255))
+    cdepemi = Column(SmallInteger, nullable=False)
+    ddesdepemi = Column(String(16), nullable=False)
+    cdisemi = Column(SmallInteger)
+    ddesdisemi = Column(String(30))
+    cciuemi = Column(SmallInteger, nullable=False)
+    ddesciuemi = Column(String(30), nullable=False)
+    dtelemi = Column(String(15), nullable=False)
+    demaile = Column(String(80), nullable=False)
+    ddensuc = Column(String(30))
+
+    documentos = relationship("Documento", back_populates="emisor", cascade="all, delete-orphan")
     actividades = relationship("EmisorActividad", back_populates="emisor")
+
 
 class EmisorActividad(Base):
     __tablename__ = "de_emisor_actividad"
@@ -253,26 +260,30 @@ class NotaCreditoDebito(Base):
     
 class Evento(Base):
     __tablename__ = "de_eventos"
+    id = Column(Integer , primary_key = True ,index =True)
+    estado = Column(String(20))
+    estado_actual = Column(String(50), default='PENDIENTE_ENVIO')
+    dfecfirma = Column(TIMESTAMP)
+    dverfor = Column(Integer)
+    dtigde =Column(String(100))
+    cdc_dte = Column(String(44))
+    mototeve = Column(String(300))
+    dnumtim = Column(String(8))
+    dest = Column(String(3))
+    dnumin = Column(String(7))
+    dnumfin = Column(String(7))
+    tipeve = Column(Integer)
+    itide = Column(Integer)
+    de_id = Column(Integer)   
+    # Campos para guardar respuesta
+    dcodres = Column(String(10))
+    dmsgres = Column(String(500))
+    dprot_aut = Column(String(50))
+    destres = Column(String(50))
+    dfecproc = Column(TIMESTAMP)
     
-    id = Column(Integer, primary_key=True)
-    dfecfirma = Column(TIMESTAMP, nullable=False)   # GDE004
-    dverfor = Column(Integer, nullable=False)       # GDE005
-    dtigde = Column(Integer, nullable=False)        # GDE006: 1=Cancelación, 2=Inutilización
-    
-    # Campos para CANCELACIÓN (dtigde = 1)
-    cdc_dte = Column(String(44))                    # GEC002: CDC del DTE
-    mototeve  = Column(Text)                         # GEC003: Motivo
-    
-    # Campos para INUTILIZACIÓN (dtigde = 2)
-    dnumtim = Column(String(8))                     # GEI002: Número del Timbrado
-    dest = Column(String(3))                        # GEI003: Establecimiento
-    dpunexp = Column(String(3))                     # GEI004: Punto de expedición
-    dnumin = Column(String(7))                      # GEI005: Número Inicio del rango
-    dnumfin = Column(String(7))                     # GEI006: Número Final del rango
-    itide = Column(SmallInteger)                    # GEI007: Tipo de Documento Electrónico
-    
-
     created_at = Column(TIMESTAMP, default=func.now())
+    
     
 
     
@@ -432,11 +443,12 @@ class Lote(Base):
     __tablename__ = "de_lote"
 
     id = Column(Integer, primary_key=True)
-    nro_lote_sifen = Column(String(15), unique=True, nullable=True)
+    nro_lote_sifen = Column(String(50), unique=True, nullable=True)
     estado = Column(String(30), default="ENVIADO")  
     fecha_envio = Column(TIMESTAMP, default=func.now())
     xml_request = Column(Text)
     xml_response = Column(Text)
+    tipo_documento = Column(String(10)) 
     
     documentos = relationship("LoteDocumento", back_populates="lote")
 

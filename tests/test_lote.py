@@ -1,18 +1,17 @@
 import sys, os
 import psycopg2
-from core.xml_builder import XMLBuilder
+from core.infraestructure.xml.xml_builder import XMLBuilder
 from domain.repositories.doc_repo import DocumentoRepo
-from core.database import get_db
-from core.soap_client import SOAPClient
-from core.enviDE import sendDE
-from core.consultaRuc import consultaRuc
+from core.infraestructure.database import get_db
+from core.infraestructure.soap.soap_client import SOAPClient
+from core.infraestructure.use_cases.enviDE import sendDE
 from services.response_service import getResponse
 from services.lote_service import LoteService
-from core.xml_builder_lote import XMLBuilderLote
+from core.infraestructure.xml.xml_builder_lote import XMLBuilderLote
 
 
 def test_generar_xml():
-    id_test = 96
+    id_test = 99
     #id_2 = 96
     output_dir = "tests/output"
     os.makedirs(output_dir, exist_ok=True)
@@ -29,12 +28,12 @@ def test_generar_xml():
 
     print("TIMBRADO ITIDE:", doc.timbrado.itide ,doc.timbrado.ddestide,"Numerodoc: ",doc.dnumdoc)
 
-    xml_bytes = XMLBuilder().build(doc)
+    xml_bytes = XMLBuilder(db).build(doc)
     #xml2 = XMLBuilder().build(doc2)
     rdlist=[xml_bytes]  
     builder = XMLBuilderLote()
     rLoteDE =builder.build_lote(rde_list =rdlist)
-    # Guardar el XML individual
+        # Guardar el XML individual
     with open("tests/output/onlyxml.xml", "wb") as f:
         f.write(rLoteDE)
     

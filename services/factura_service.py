@@ -1,6 +1,6 @@
-from core.soap_client import SOAPClient
-from core.xml_builder import XMLBuilder
-from core.xml_builder_lote import XMLBuilderLote
+from core.infraestructure.soap.soap_client import SOAPClient
+from core.infraestructure.xml.xml_builder import XMLBuilder
+from core.infraestructure.xml.xml_builder_lote import XMLBuilderLote
 from services.lote_service import LoteService
 from domain.repositories.doc_repo import DocumentoRepo
 from domain.repositories.lote_repo import LoteRepository, LoteDocumentoRepository
@@ -18,57 +18,48 @@ class FacturaService:
         self.key_path = r"C:\Users\mauri\clave_privada_desenc.pem"
         
     def procesar_pendientes(self, batch_size: int = 50):
-        """
-        Procesa documentos pendientes agrupándolos en lotes
-        """
         logger.info("Iniciando procesamiento de documentos pendientes")
-        
-        # Obtener documentos pendientes
+
         documentos = self.repo_doc.getPendiente()
-        total_documentos = len(documentos)
-        
-        logger.info(f"Documentos pendientes encontrados: {total_documentos}")
-        
-        if total_documentos == 0:
-            logger.info("No hay documentos pendientes para procesar")
+        if not documentos:
             return {"total_procesados": 0, "lotes": []}
-        
-        respuestas = {}
-        lotes_procesados = []
-        
-        # Procesar en lotes
-        for i in range(0, total_documentos, batch_size):
-            batch = documentos[i:i + batch_size]
-            logger.info(f"Procesando lote {len(lotes_procesados) + 1} con {len(batch)} documentos")
-            
-            try:
-                # Procesar el lote
-                resultado = self._procesar_lote(batch, len(lotes_procesados) + 1)
-                lotes_procesados.append(resultado)
-                
-            except Exception as e:
-                logger.error(f"Error procesando lote {len(lotes_procesados) + 1}: {str(e)}")
-                respuestas[f"lote_error_{len(lotes_procesados) + 1}"] = str(e)
-        
-        logger.info(f"Procesamiento completado. Lotes procesados: {len(lotes_procesados)}")
-        
+
+        # 🔥 Agrupar por tipo de documento (FE, NC, etc.)
+        grupos = {}
+        for doc in documentos:
+            # Usar el campo tipo_doc que agregaste
+            tipo_doc = doc.tipo_doc if hasattr(doc, 'tipo_doc') and doc.tipo_doc else 'FE'
+            grupos.setdefault(tipo_doc, []).append(doc)
+
+        resultados = []
+
+        for tipo_doc, docs_tipo in grupos.items():
+            logger.info(f"Procesando {len(docs_tipo)} documentos tipo {tipo_doc}")
+
+            for i in range(0, len(docs_tipo), batch_size):
+                batch = docs_tipo[i:i + batch_size]
+                resultado = self._procesar_lote(batch, tipo_doc)
+                resultados.append(resultado)
+
         return {
-            "total_procesados": total_documentos,
-            "lotes": lotes_procesados,
-            "errores": respuestas
+            "total_procesados": len(documentos),
+            "lotes": resultados
         }
+
     
-    def _procesar_lote(self, documentos: list, numero_lote: int) -> dict:
+    def _procesar_lote(self, documentos: list, tipo_documento: str) -> dict:  # Cambiado de numero_lote a tipo_documento
+    
         """
         Procesa un lote de documentos
         """
-        logger.info(f"Iniciando procesamiento del lote {numero_lote}")
+
         
         # 1. Crear el registro del lote en la base de datos
         lote_data = {
             "estado": "PENDIENTE_ENVIO",
-            "xml_request": None,  # Se actualizará después
-            "xml_response": None
+            "xml_request": None,
+            "xml_response": None,
+            "tipo_documento": tipo_documento  # Agregar tipo de documento
         }
         
         lote = self.lote_repo.crear_lote(lote_data)
@@ -81,7 +72,7 @@ class FacturaService:
         for doc in documentos:
             try:
                 # Generar XML del documento
-                xml_de = XMLBuilder().build(doc)
+                xml_de = XMLBuilder(self.db).build(doc)
                 
                 # Preparar datos para agregar al lote
                 doc_data = {
@@ -132,7 +123,7 @@ class FacturaService:
         # 4. Enviar lote a SIFEN
         try:
             soap_client = SOAPClient(self.cert_path, self.key_path, True)
-            response = soap_client.send(xml_lote)
+            response = LoteService.rEnvioLote(soap_client,xml=xml_lote,id=lote.id)
             
             # 5. Procesar respuesta y actualizar estados
             self._procesar_respuesta_lote(lote.id, response, documentos_procesados)
@@ -173,12 +164,30 @@ class FacturaService:
         Procesa la respuesta del lote y actualiza estados
         """
         try:
-            # Actualizar respuesta del lote
-            self.lote_repo.actualizar_respuesta_lote(
-                lote_id=lote_id,
-                xml_response=respuesta,
-                estado="ENVIADO"
-            )
+            import xml.etree.ElementTree as ET
+            
+            # Extraer dProtConsLote del XML de respuesta
+            nro_lote_sifen = None
+            try:
+                root = ET.fromstring(respuesta)
+                ns = {'ns2': 'http://ekuatia.set.gov.py/sifen/xsd'}
+                prot_cons_lote = root.find('.//ns2:dProtConsLote', ns)
+                if prot_cons_lote is not None:
+                    nro_lote_sifen = prot_cons_lote.text
+                    logger.info(f"Protocolo SIFEN {nro_lote_sifen} extraído para lote {lote_id}")
+            except Exception as e:
+                logger.error(f"Error extrayendo protocolo del lote {lote_id}: {str(e)}")
+            
+            # Actualizar respuesta del lote con el número de protocolo
+            update_data = {
+                "xml_response": respuesta,
+                "estado": "ENVIADO"
+            }
+            
+            if nro_lote_sifen:
+                update_data["nro_lote_sifen"] = nro_lote_sifen
+            
+            self.lote_repo.actualizar_lote(lote_id, update_data)
             
             # TODO: Parsear la respuesta XML para obtener estado de cada documento
             # Por ahora, marcar todos como "ENVIADO" hasta consulta posterior

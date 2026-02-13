@@ -2,34 +2,32 @@ import os
 import warnings
 from dotenv import load_dotenv
 from lxml import etree as ET
-from core.sign_xml import signxml
+from pytest import Session
+from core.infraestructure.xml.sign_xml import signxml
 import decimal
-from core.database import get_db
-from domain.models.models import OperacionContado, Timbrado, OperacionCredito
+from core.infraestructure.database.database import get_db
+from domain.models.models import Documento, OperacionContado, Timbrado, OperacionCredito
 from utils.hashQR import sha256_hash_bytes
 from utils.toInt import to_int_if_possible
-
-
+from utils.buildCDC import buildCDC
+from utils.loadDFecFirma import loadFec
 load_dotenv()
 
 
-def safe_get(obj, attr, default=""):
-    """Devuelve el atributo si existe, si no devuelve un valor por defecto."""
-    try:
-        # Intenta acceder al atributo. Si es un número, se asegura que no se use "" como default.
-        if isinstance(default, (int, float, decimal.Decimal)) and not isinstance(obj, (int, float, decimal.Decimal)):
-            return getattr(obj, attr, default) if obj else default
-        return getattr(obj, attr, default) if obj else default
-    except Exception:
+def safe_get(obj, attr, default=None):
+    """Devuelve el atributo si existe, o default si es None o no existe."""
+    if obj is None:
         return default
+    return getattr(obj, attr, default)
+
 
 
 
 
 class XMLBuilder:
     
-    db = next(get_db())
-    
+    def __init__(self, db: Session):
+        self.db = db
     
     
     NS = {
@@ -37,7 +35,7 @@ class XMLBuilder:
         "xsi": "http://www.w3.org/2001/XMLSchema-instance",
     }
 
-    def build(self, doc):
+    def build(self, doc:Documento):
         
         rDE = ET.Element("rDE", nsmap=self.NS)
 
@@ -48,35 +46,31 @@ class XMLBuilder:
         )
 
         ET.SubElement(rDE, "dVerFor").text = str(safe_get(doc, "dverfor"))
+        buildCDC(self.db,doc)
+        
         cdc =safe_get(doc, "cdc_de")
-        dv = safe_get(doc, "ddvid")
-        Id_DE=f'{cdc}{dv}'
+        
+        Id_DE=cdc
+        
         DE = ET.SubElement(rDE, "DE", Id=Id_DE)
         ET.SubElement(DE, "dDVId").text = str(safe_get(doc, "ddvid"))
-
+        
+        loadFec(self.db,doc)
         fechafirma =doc.dfecfirma.strftime("%Y-%m-%dT%H:%M:%S") #"2025-12-18T14:17:10"
         ET.SubElement(DE, "dFecFirma").text = fechafirma
 
         ET.SubElement(DE, "dSisFact").text = str(safe_get(doc, "dsisfact"))
 
         self._build_gOpeDE(DE, safe_get(doc, "operacion"))
-
-        timbrado = (
-            self.db.query(Timbrado)
-            .filter(Timbrado.id == doc.idtimbrado)
-            .first()
-        )
-
-        self._build_gTimb(DE, timbrado, doc)
+        self._build_gTimb(DE, doc.timbrado, doc)
         self._build_gDatGralOpe(DE, doc)
         self._build_gDtipDE(DE, doc)
-
-        if timbrado.itide == 5:
+        
+        if doc.timbrado.itide == 5:
             self._build_gCamNCDE(DE, safe_get(doc, "nota_credito_debito"))
 
         self._build_gTotSub(DE, safe_get(doc, "totales"))
 
-        # 1. Serializar el nodo DE para la firma (ya tenemos la referencia)
         xml_unsigned = ET.tostring(DE, encoding="utf-8", pretty_print=False, xml_declaration=False)
         
         try:
@@ -424,7 +418,9 @@ class XMLBuilder:
         dTotIVA = to_int_if_possible(safe_get(totales, "dtotiva", "0") if totales else "0")
         items = getattr(doc, "items", [])
         cItems = str(len(items))
+        #print(digest_value_b64)
         DigestValue = (digest_value_b64).encode().hex()
+        #print(f'------------{DigestValue}-----------------')
         IdCSC = "0001"  # siempre fijo en TEST  
 
         # ---- construir URL QR ----
@@ -442,8 +438,10 @@ class XMLBuilder:
         
 
         CSC = os.environ["CSC"]
+        
 
         cadena_hash = datos_qr + CSC
+        #print(cadena_hash)
         hash_bytes = sha256_hash_bytes((cadena_hash).encode("utf-8"))
         # validar test y prod para mdoificar el url del qr
         

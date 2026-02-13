@@ -3,7 +3,7 @@ import io
 import os
 import zipfile
 from dotenv import load_dotenv
-from core.soap_client import SOAPClient
+from core.infraestructure.soap.soap_client import SOAPClient
 
 load_dotenv()
 endpoint= os.environ["LOTE_ENDPOINT"]
@@ -14,7 +14,7 @@ endpoint= os.environ["LOTE_ENDPOINT"]
 
 class LoteService:
   
-  endpoint = "https://sifen.set.gov.py/de/ws/async/recibe-lote.wsdl"
+  endpoint = "https://sifen-test.set.gov.py/de/ws/async/recibe-lote.wsdl"
   
   def rEnvioLote(client, xml: bytes, id: int):
       """
@@ -63,4 +63,5 @@ class LoteService:
       )
       
 
-      return client.send(endpoint, soap_bytes)
+      response = client.send(endpoint, soap_bytes)
+      return response.content.decode("utf-8") 

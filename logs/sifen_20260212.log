@@ -1,0 +1,65 @@
+2026-02-12 09:57:09 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 09:57:09 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-12 09:57:09 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-12 09:57:09 - services.evento_service - INFO - Procesando evento 4
+2026-02-12 09:57:10 - domain.repositories.evento_repo - INFO - Fecha Firma del evento 4 actualizado a: 2026-02-12 09:55:09.986730
+2026-02-12 09:57:12 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-12 09:57:12 - services.evento_service - ERROR - Error procesando evento 4: EventoRepository.update_respuesta() got an unexpected keyword argument 'cod_res'
+2026-02-12 09:57:12 - services.evento_service - ERROR - Error procesando evento 4: EventoRepository.update_respuesta() got an unexpected keyword argument 'cod_res'
+2026-02-12 10:00:22 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 10:00:22 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-12 10:00:22 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-12 10:00:22 - services.evento_service - INFO - Procesando evento 4
+2026-02-12 10:00:22 - domain.repositories.evento_repo - INFO - Fecha Firma del evento 4 actualizado a: 2026-02-12 09:58:22.154239
+2026-02-12 10:00:24 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-12 10:00:24 - services.evento_service - ERROR - Error procesando evento 4: EventoRepository.update_respuesta() got an unexpected keyword argument 'dcodres'
+2026-02-12 10:00:24 - services.evento_service - ERROR - Error procesando evento 4: EventoRepository.update_respuesta() got an unexpected keyword argument 'dcodres'
+2026-02-12 10:04:59 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 10:04:59 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-12 10:04:59 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-12 10:04:59 - services.evento_service - INFO - Procesando evento 4
+2026-02-12 10:04:59 - domain.repositories.evento_repo - INFO - Fecha Firma del evento 4 actualizado a: 2026-02-12 10:02:59.456527
+2026-02-12 10:05:01 - domain.repositories.evento_repo - ERROR - Error al actualizar evento 4: (psycopg2.errors.InvalidDatetimeFormat) la sintaxis de entrada no es válida para tipo time: «2026-02-12T10:05:01-03:00»
+LINE 1: ...evento solicitado', destres='Rechazado', dfecproc='2026-02-1...
+                                                             ^
+
+[SQL: UPDATE de_eventos SET dcodres=%(dcodres)s, dmsgres=%(dmsgres)s, destres=%(destres)s, dfecproc=%(dfecproc)s WHERE de_eventos.id = %(de_eventos_id)s]
+[parameters: {'dcodres': '4003', 'dmsgres': 'CDC ya se encuentra con el mismo evento solicitado', 'destres': 'Rechazado', 'dfecproc': '2026-02-12T10:05:01-03:00', 'de_eventos_id': 4}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-12 10:05:01 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-12 10:05:01 - services.evento_service - ERROR - Error procesando evento 4: (psycopg2.errors.InvalidDatetimeFormat) la sintaxis de entrada no es válida para tipo time: «2026-02-12T10:05:01-03:00»
+LINE 1: ...evento solicitado', destres='Rechazado', dfecproc='2026-02-1...
+                                                             ^
+
+[SQL: UPDATE de_eventos SET dcodres=%(dcodres)s, dmsgres=%(dmsgres)s, destres=%(destres)s, dfecproc=%(dfecproc)s WHERE de_eventos.id = %(de_eventos_id)s]
+[parameters: {'dcodres': '4003', 'dmsgres': 'CDC ya se encuentra con el mismo evento solicitado', 'destres': 'Rechazado', 'dfecproc': '2026-02-12T10:05:01-03:00', 'de_eventos_id': 4}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-12 10:05:01 - services.evento_service - ERROR - Error procesando evento 4: (psycopg2.errors.InvalidDatetimeFormat) la sintaxis de entrada no es válida para tipo time: «2026-02-12T10:05:01-03:00»
+LINE 1: ...evento solicitado', destres='Rechazado', dfecproc='2026-02-1...
+                                                             ^
+
+[SQL: UPDATE de_eventos SET dcodres=%(dcodres)s, dmsgres=%(dmsgres)s, destres=%(destres)s, dfecproc=%(dfecproc)s WHERE de_eventos.id = %(de_eventos_id)s]
+[parameters: {'dcodres': '4003', 'dmsgres': 'CDC ya se encuentra con el mismo evento solicitado', 'destres': 'Rechazado', 'dfecproc': '2026-02-12T10:05:01-03:00', 'de_eventos_id': 4}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-12 10:09:20 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-12 10:09:20 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 10:09:20 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-12 10:09:20 - services.evento_service - INFO - Procesando evento 4
+2026-02-12 10:09:21 - domain.repositories.evento_repo - INFO - Fecha Firma del evento 4 actualizado a: 2026-02-12 10:07:20.991448
+2026-02-12 10:09:23 - domain.repositories.evento_repo - INFO - Evento 4 actualizado exitosamente
+2026-02-12 10:09:23 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-12 10:09:23 - services.evento_service - ERROR - Evento 4 rechazado: CDC ya se encuentra con el mismo evento solicitado
+2026-02-12 10:09:53 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 10:09:53 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-12 13:36:43 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-12 13:36:43 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-12 13:36:43 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-12 13:36:43 - services.factura_service - INFO - Procesando 3 documentos tipo 1                   
+2026-02-12 13:36:43 - services.factura_service - INFO - Lote creado en BD con ID: 10
+2026-02-12 13:36:43 - services.factura_service - DEBUG - Documento 100 preparado para lote 10
+2026-02-12 13:36:43 - services.factura_service - DEBUG - Documento 101 preparado para lote 10
+2026-02-12 13:36:43 - services.factura_service - DEBUG - Documento 102 preparado para lote 10
+2026-02-12 13:36:43 - services.factura_service - INFO - XML de lote generado para lote 10
+2026-02-12 13:36:44 - services.factura_service - INFO - Protocolo SIFEN 5586437372040580010 extraído para lote 10
+2026-02-12 13:36:44 - services.factura_service - INFO - Respuesta del lote 10 procesada
+2026-02-12 13:36:44 - services.factura_service - INFO - Lote 10 enviado exitosamente a SIFEN

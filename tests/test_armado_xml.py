@@ -1,9 +1,9 @@
 import sys, os
 import psycopg2
 from services.lote_service import LoteService
-from core.xml_builder import XMLBuilder
+from core.infraestructure.xml.xml_builder import XMLBuilder
 from domain.repositories.doc_repo import DocumentoRepo
-from core.database import get_db
+from core.infraestructure.database import get_db
 
 def test_generar_xml():
     id_test = 213

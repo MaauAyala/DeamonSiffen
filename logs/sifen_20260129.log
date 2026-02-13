@@ -1,0 +1,63 @@
+2026-01-29 17:00:45 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:01:49 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:05:26 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:05:26 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:18:27 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:18:28 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:19:28 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:19:28 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:24:23 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:24:23 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:24:23 - services.factura_service - INFO - Lote creado en BD con ID: 1
+2026-01-29 17:24:24 - services.factura_service - ERROR - Error procesando documento 94: (psycopg2.errors.UndefinedTable) no existe la relación «de_lote_documento»
+LINE 1: INSERT INTO de_lote_documento (lote_id, documento_id, cdc, e...
+                    ^
+
+[SQL: INSERT INTO de_lote_documento (lote_id, documento_id, cdc, estado_resultado, codigo_error, mensaje_error) VALUES (%(lote_id)s, %(documento_id)s, %(cdc)s, %(estado_resultado)s, %(codigo_error)s, %(mensaje_error)s) RETURNING de_lote_documento.id]
+[parameters: {'lote_id': 1, 'documento_id': 94, 'cdc': '0104849678200100100000012202601231734552795', 'estado_resultado': None, 'codigo_error': None, 'mensaje_error': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-29 17:25:24 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:25:24 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:25:24 - services.factura_service - INFO - Lote creado en BD con ID: 2
+2026-01-29 17:25:24 - services.factura_service - ERROR - Error procesando documento 94: (psycopg2.errors.UndefinedTable) no existe la relación «de_lote_documento»
+LINE 1: INSERT INTO de_lote_documento (lote_id, documento_id, cdc, e...
+                    ^
+
+[SQL: INSERT INTO de_lote_documento (lote_id, documento_id, cdc, estado_resultado, codigo_error, mensaje_error) VALUES (%(lote_id)s, %(documento_id)s, %(cdc)s, %(estado_resultado)s, %(codigo_error)s, %(mensaje_error)s) RETURNING de_lote_documento.id]
+[parameters: {'lote_id': 2, 'documento_id': 94, 'cdc': '0104849678200100100000012202601231734552795', 'estado_resultado': None, 'codigo_error': None, 'mensaje_error': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-29 17:33:13 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:33:14 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:33:14 - services.factura_service - INFO - Lote creado en BD con ID: 3
+2026-01-29 17:33:14 - services.factura_service - DEBUG - Documento 94 preparado para lote 3
+2026-01-29 17:33:14 - services.factura_service - DEBUG - Documento 95 preparado para lote 3
+2026-01-29 17:33:14 - services.factura_service - DEBUG - Documento 96 preparado para lote 3
+2026-01-29 17:33:14 - services.factura_service - INFO - XML de lote generado para lote 3
+2026-01-29 17:33:14 - services.factura_service - ERROR - Error enviando lote 3: SOAPClient.send() missing 1 required positional argument: 'soap_bytes'
+2026-01-29 17:41:50 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:42:54 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:43:55 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:45:15 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 17:45:16 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 17:45:16 - services.factura_service - INFO - Lote creado en BD con ID: 4
+2026-01-29 17:45:16 - services.factura_service - DEBUG - Documento 94 preparado para lote 4
+2026-01-29 17:45:16 - services.factura_service - DEBUG - Documento 95 preparado para lote 4
+2026-01-29 17:45:16 - services.factura_service - DEBUG - Documento 96 preparado para lote 4
+2026-01-29 17:45:16 - services.factura_service - INFO - XML de lote generado para lote 4
+2026-01-29 17:45:18 - services.factura_service - ERROR - Error procesando respuesta del lote 4: (psycopg2.ProgrammingError) can't adapt type 'Response'
+[SQL: UPDATE de_lote SET estado=%(estado)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'estado': 'ENVIADO', 'xml_response': <Response [200]>, 'de_lote_id': 4}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-29 17:45:18 - services.factura_service - ERROR - Error enviando lote 4: (psycopg2.ProgrammingError) can't adapt type 'Response'
+[SQL: UPDATE de_lote SET estado=%(estado)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'estado': 'ENVIADO', 'xml_response': <Response [200]>, 'de_lote_id': 4}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-01-29 20:22:53 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-01-29 20:22:54 - services.factura_service - INFO - Procesando 3 documentos tipo FE
+2026-01-29 20:22:54 - services.factura_service - INFO - Lote creado en BD con ID: 5
+2026-01-29 20:22:54 - services.factura_service - DEBUG - Documento 94 preparado para lote 5
+2026-01-29 20:22:54 - services.factura_service - DEBUG - Documento 95 preparado para lote 5
+2026-01-29 20:22:54 - services.factura_service - DEBUG - Documento 96 preparado para lote 5
+2026-01-29 20:22:54 - services.factura_service - INFO - XML de lote generado para lote 5
+2026-01-29 20:22:55 - services.factura_service - INFO - Respuesta del lote 5 procesada
+2026-01-29 20:22:55 - services.factura_service - INFO - Lote 5 enviado exitosamente a SIFEN

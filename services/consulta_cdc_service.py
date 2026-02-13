@@ -1,4 +1,4 @@
-from core.soap_client import SOAPClient
+from core.infraestructure.soap.soap_client import SOAPClient
 
 endpoint = "https://sifen.set.gov.py/de/ws/consultas/consulta.wsdl"
 

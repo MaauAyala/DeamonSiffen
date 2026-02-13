@@ -1,7 +1,7 @@
 # Archivo: tests/testSignxml.py
 
 import os
-from core.sign_xml import signxml
+from core.infraestructure.xml.sign_xml import signxml
 from lxml import etree
 
 def test_signature_is_added():

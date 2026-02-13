@@ -1,0 +1,161 @@
+2026-02-11 14:29:14 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:29:14 - domain.repositories.evento_repo - ERROR - Error al obtener eventos pendientes: 'generator' object has no attribute 'query'
+2026-02-11 14:31:36 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:31:37 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:37:46 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:37:46 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:37:46 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:37:46 - services.factura_service - INFO - Procesando 2 documentos tipo 1                   
+2026-02-11 14:37:46 - services.factura_service - INFO - Lote creado en BD con ID: 7
+2026-02-11 14:37:46 - services.factura_service - ERROR - Error procesando documento 98: XMLBuilder.__init__() missing 1 required positional argument: 'db'
+2026-02-11 14:39:46 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:39:47 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:39:47 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:39:47 - services.factura_service - INFO - Procesando 2 documentos tipo 1                   
+2026-02-11 14:39:47 - services.factura_service - INFO - Lote creado en BD con ID: 8
+2026-02-11 14:39:47 - services.factura_service - DEBUG - Documento 98 preparado para lote 8
+2026-02-11 14:39:47 - services.factura_service - DEBUG - Documento 99 preparado para lote 8
+2026-02-11 14:39:47 - services.factura_service - INFO - XML de lote generado para lote 8
+2026-02-11 14:39:48 - services.factura_service - INFO - Protocolo SIFEN 55864373798117114 extraído para lote 8
+2026-02-11 14:39:48 - services.factura_service - ERROR - Error procesando respuesta del lote 8: (psycopg2.errors.StringDataRightTruncation) el valor es demasiado largo para el tipo character varying(15)
+
+[SQL: UPDATE de_lote SET nro_lote_sifen=%(nro_lote_sifen)s, estado=%(estado)s, fecha_envio=%(fecha_envio)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'nro_lote_sifen': '55864373798117114', 'estado': 'ENVIADO', 'fecha_envio': datetime.datetime(2026, 2, 11, 14, 39, 48, 225551), 'xml_response': '<?xml version="1.0" encoding="UTF-8"?>\n<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Header/><env:Body><ns2:rResEnviLoteDe  ... (176 characters truncated) ... ns2:dMsgRes><ns2:dProtConsLote>55864373798117114</ns2:dProtConsLote><ns2:dTpoProces>0</ns2:dTpoProces></ns2:rResEnviLoteDe></env:Body></env:Envelope>', 'de_lote_id': 8}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-11 14:39:48 - services.factura_service - ERROR - Error enviando lote 8: (psycopg2.errors.StringDataRightTruncation) el valor es demasiado largo para el tipo character varying(15)
+
+[SQL: UPDATE de_lote SET nro_lote_sifen=%(nro_lote_sifen)s, estado=%(estado)s, fecha_envio=%(fecha_envio)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'nro_lote_sifen': '55864373798117114', 'estado': 'ENVIADO', 'fecha_envio': datetime.datetime(2026, 2, 11, 14, 39, 48, 225551), 'xml_response': '<?xml version="1.0" encoding="UTF-8"?>\n<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Header/><env:Body><ns2:rResEnviLoteDe  ... (176 characters truncated) ... ns2:dMsgRes><ns2:dProtConsLote>55864373798117114</ns2:dProtConsLote><ns2:dTpoProces>0</ns2:dTpoProces></ns2:rResEnviLoteDe></env:Body></env:Envelope>', 'de_lote_id': 8}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-11 14:44:39 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:44:39 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:44:40 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:45:10 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:45:10 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:52:15 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:52:15 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:52:15 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:52:15 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-11 14:52:15 - services.factura_service - INFO - Lote creado en BD con ID: 9
+2026-02-11 14:52:15 - services.factura_service - DEBUG - Documento 98 preparado para lote 9
+2026-02-11 14:52:15 - services.factura_service - INFO - XML de lote generado para lote 9
+2026-02-11 14:52:17 - services.factura_service - INFO - Protocolo SIFEN 5586437372038077170 extraído para lote 9
+2026-02-11 14:52:17 - services.factura_service - INFO - Respuesta del lote 9 procesada
+2026-02-11 14:52:17 - services.factura_service - INFO - Lote 9 enviado exitosamente a SIFEN
+2026-02-11 14:52:45 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:52:45 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:53:15 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:53:15 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:53:17 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:53:45 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:53:45 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:57:32 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:57:32 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 14:57:33 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 14:58:03 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 14:58:03 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 15:01:51 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:01:51 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:01:51 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:01:51 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:01:51 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:01:51 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:01:51 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:04:29 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:04:29 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:04:29 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 15:05:21 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:05:21 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:05:21 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:05:21 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:05:22 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:05:22 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:05:22 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:08:37 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:08:37 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:08:37 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:08:37 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:08:37 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:08:37 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:08:37 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:11:01 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:11:01 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:11:01 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:11:01 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:11:01 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:11:01 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:11:01 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:11:53 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:11:53 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:11:53 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:11:53 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:11:53 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:11:53 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:11:53 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:13:42 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:13:42 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:13:42 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 15:14:12 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:14:12 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:14:12 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:14:12 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:14:12 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:14:12 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:15:05 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:15:05 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:15:05 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:15:05 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:15:05 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:15:05 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:15:05 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:19:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 15:19:31 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 15:19:31 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 15:19:31 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 15:19:31 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 15:19:31 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 15:19:31 - services.evento_service - ERROR - Error procesando evento 3: Argument must be bytes or unicode, got 'int'
+2026-02-11 16:28:23 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 16:28:23 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 16:28:23 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 16:28:23 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 16:28:23 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 16:28:23 - services.evento_service - ERROR - Error procesando evento 3: Tipo de evento no soportado: None
+2026-02-11 16:28:23 - services.evento_service - ERROR - Error procesando evento 3: Tipo de evento no soportado: None
+2026-02-11 16:35:00 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 16:35:00 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 16:35:00 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 16:35:00 - services.evento_service - INFO - Procesando evento 3
+2026-02-11 16:35:02 - domain.repositories.evento_repo - INFO - Estado del evento 3 actualizado a: ERROR
+2026-02-11 16:35:02 - services.evento_service - ERROR - Respuesta inválida para evento 3
+2026-02-11 18:40:58 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 18:40:58 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 18:40:58 - domain.repositories.evento_repo - ERROR - Error al obtener eventos pendientes: (psycopg2.errors.UndefinedColumn) no existe la columna de_eventos.dcodres
+LINE 1: ...ntos_itide, de_eventos.de_id AS de_eventos_de_id, de_eventos...
+                                                             ^
+
+[SQL: SELECT de_eventos.id AS de_eventos_id, de_eventos.estado AS de_eventos_estado, de_eventos.estado_actual AS de_eventos_estado_actual, de_eventos.dfecfirma AS de_eventos_dfecfirma, de_eventos.dverfor AS de_eventos_dverfor, de_eventos.dtigde AS de_eventos_dtigde, de_eventos.cdc_dte AS de_eventos_cdc_dte, de_eventos.mototeve AS de_eventos_mototeve, de_eventos.dnumtim AS de_eventos_dnumtim, de_eventos.dest AS de_eventos_dest, de_eventos.dnumin AS de_eventos_dnumin, de_eventos.dnumfin AS de_eventos_dnumfin, de_eventos.tipeve AS de_eventos_tipeve, de_eventos.itide AS de_eventos_itide, de_eventos.de_id AS de_eventos_de_id, de_eventos.dcodres AS de_eventos_dcodres, de_eventos.dmsgres AS de_eventos_dmsgres, de_eventos.dprot_aut AS de_eventos_dprot_aut, de_eventos.destres AS de_eventos_destres, de_eventos.dfecproc AS de_eventos_dfecproc, de_eventos.created_at AS de_eventos_created_at 
+FROM de_eventos 
+WHERE de_eventos.estado_actual = %(estado_actual_1)s ORDER BY de_eventos.id ASC 
+ LIMIT %(param_1)s]
+[parameters: {'estado_actual_1': 'PENDIENTE_ENVIO', 'param_1': 50}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-02-11 18:48:12 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 18:48:12 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 18:48:12 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 18:48:12 - services.evento_service - INFO - Procesando evento 4
+2026-02-11 18:48:13 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-11 18:48:13 - services.evento_service - ERROR - Error procesando evento 4: HTTPSConnectionPool(host='sifen.set.gov.py', port=443): Max retries exceeded with url: /de/ws/eventos/evento.wsdl (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000220D825E420>: Failed to resolve 'sifen.set.gov.py' ([Errno 11001] getaddrinfo failed)"))
+2026-02-11 18:48:13 - services.evento_service - ERROR - Error procesando evento 4: HTTPSConnectionPool(host='sifen.set.gov.py', port=443): Max retries exceeded with url: /de/ws/eventos/evento.wsdl (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000220D825E420>: Failed to resolve 'sifen.set.gov.py' ([Errno 11001] getaddrinfo failed)"))
+2026-02-11 20:20:46 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 20:20:46 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 20:20:47 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 20:21:17 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 20:21:17 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-11 20:21:47 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-11 20:21:47 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-11 20:21:47 - services.evento_service - INFO - Procesando evento 4
+2026-02-11 20:21:47 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-11 20:21:49 - domain.repositories.evento_repo - INFO - Estado del evento 4 actualizado a: ERROR
+2026-02-11 20:21:49 - services.evento_service - ERROR - Error procesando evento 4: memoryview: a bytes-like object is required, not 'Response'
+2026-02-11 20:21:49 - services.evento_service - ERROR - Error procesando evento 4: memoryview: a bytes-like object is required, not 'Response'

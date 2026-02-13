@@ -1,0 +1,38 @@
+2026-02-03 15:00:31 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-03 15:00:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:00:31 - services.factura_service - INFO - Procesando 1 documentos tipo FE
+2026-02-03 15:00:31 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:00:31 - services.factura_service - INFO - Lote creado en BD con ID: 6
+2026-02-03 15:00:31 - services.factura_service - DEBUG - Documento 96 preparado para lote 6
+2026-02-03 15:00:31 - services.factura_service - INFO - XML de lote generado para lote 6
+2026-02-03 15:00:35 - services.factura_service - INFO - Protocolo SIFEN 55864373797933564 extraído para lote 6
+2026-02-03 15:00:35 - services.factura_service - ERROR - Error procesando respuesta del lote 6: (psycopg2.errors.StringDataRightTruncation) el valor es demasiado largo para el tipo character varying(15)
+
+[SQL: UPDATE de_lote SET nro_lote_sifen=%(nro_lote_sifen)s, estado=%(estado)s, fecha_envio=%(fecha_envio)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'nro_lote_sifen': '55864373797933564', 'estado': 'ENVIADO', 'fecha_envio': datetime.datetime(2026, 2, 3, 15, 0, 35, 248005), 'xml_response': '<?xml version="1.0" encoding="UTF-8"?>\n<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Header/><env:Body><ns2:rResEnviLoteDe  ... (176 characters truncated) ... ns2:dMsgRes><ns2:dProtConsLote>55864373797933564</ns2:dProtConsLote><ns2:dTpoProces>0</ns2:dTpoProces></ns2:rResEnviLoteDe></env:Body></env:Envelope>', 'de_lote_id': 6}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-03 15:00:35 - services.factura_service - ERROR - Error enviando lote 6: (psycopg2.errors.StringDataRightTruncation) el valor es demasiado largo para el tipo character varying(15)
+
+[SQL: UPDATE de_lote SET nro_lote_sifen=%(nro_lote_sifen)s, estado=%(estado)s, fecha_envio=%(fecha_envio)s, xml_response=%(xml_response)s WHERE de_lote.id = %(de_lote_id)s]
+[parameters: {'nro_lote_sifen': '55864373797933564', 'estado': 'ENVIADO', 'fecha_envio': datetime.datetime(2026, 2, 3, 15, 0, 35, 248005), 'xml_response': '<?xml version="1.0" encoding="UTF-8"?>\n<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"><env:Header/><env:Body><ns2:rResEnviLoteDe  ... (176 characters truncated) ... ns2:dMsgRes><ns2:dProtConsLote>55864373797933564</ns2:dProtConsLote><ns2:dTpoProces>0</ns2:dTpoProces></ns2:rResEnviLoteDe></env:Body></env:Envelope>', 'de_lote_id': 6}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2026-02-03 15:01:01 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:01:01 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:01:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:01:31 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:01:35 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-03 15:02:01 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:02:01 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:02:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:02:31 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:02:35 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-03 15:03:01 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:03:01 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:03:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:03:31 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:03:35 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-03 15:04:01 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:04:01 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-03 15:04:38 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-03 15:04:38 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-03 15:04:38 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes

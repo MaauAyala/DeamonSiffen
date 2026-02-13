@@ -18,7 +18,6 @@ class DocumentoRepo:
                 joinedload(Documento.items),
                 joinedload(Documento.totales),
                 joinedload(Documento.operacion_comercial),
-                joinedload(Documento.eventos),
                 joinedload(Documento.estados),
                 joinedload(Documento.receptor),
             )
@@ -44,14 +43,14 @@ class DocumentoRepo:
                 
             # --- Cargar Emisor por ID ---
             # Asume que Documento tiene un campo 'idemisor'
-            id_emisor = doc.idemisor 
-            if id_emisor:
+            drucem = doc.drucem 
+            if drucem:
                 # Consulta para buscar el Emisor por su ID
                 # También cargamos sus actividades, ya que eran parte de la carga inicial
                 doc.emisor = (
                     self.db.query(Emisor)
                     .options(joinedload(Emisor.actividades))
-                    .filter(Emisor.id == id_emisor)
+                    .filter(Emisor.drucem == drucem)
                     .first()
                 )
             else:
@@ -89,6 +88,8 @@ class DocumentoRepo:
                     .options(
                         joinedload(Documento.operacion),
                         joinedload(Documento.items),
+                        joinedload(Documento.emisor),
+                        joinedload(Documento.timbrado),
                         joinedload(Documento.totales),
                         joinedload(Documento.operacion_comercial),
                         joinedload(Documento.estados),
@@ -129,5 +130,17 @@ class DocumentoRepo:
     
         return doc
 
-        
+    def loadEstRes(self, data: dict):
+        for detalle in data["detalles"]:
+            doc = self.db.query(Documento).filter(
+                Documento.cdc == detalle["cdc"]
+            ).first()
+
+            if doc:
+                doc.estado_actual = detalle["est_res"]
+                doc.prot_aut = detalle["prot_aut"]
+                doc.cod_res = detalle["cod_res"]
+                doc.msg_res = detalle["msg_res"]
+
+        self.db.commit()
         
