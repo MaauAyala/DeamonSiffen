@@ -1,3 +1,7 @@
+from typing import Any, Dict, List
+import logging
+from venv import logger
+
 from sqlalchemy import String, cast
 from domain.models.models import Documento, Emisor, Timbrado # Asegúrate de importar Timbrado
 from sqlalchemy.orm import joinedload
@@ -20,12 +24,14 @@ class DocumentoRepo:
                 joinedload(Documento.operacion_comercial),
                 joinedload(Documento.estados),
                 joinedload(Documento.receptor),
+                joinedload(Documento.emisor),
+                joinedload(Documento.timbrado),
             )
             .filter(
                 Documento.estado_actual == "PENDIENTE_ENVIO",
             )
             .order_by(Documento.id.asc())
-            .limit(limite)
+            #.limit(limite) Por el momento no le pondré limite pero cuando tenga que escalar hay que hacer repo inteligente
             .all()
         )
 
@@ -63,7 +69,13 @@ class DocumentoRepo:
         
         return docs
 
+    def masiveSetState(self,data: List[Dict[str, Any]],state):
+        for doc in data:
+            documento =self.db.query(Documento).filter(Documento.id==doc["documento_id"]).first()
+            documento.estado_actual = state
             
+        self.db.commit()
+        
     
     def newEstado(self, id_doc,estado_nuevo):
         doc = self.db.query(Documento).filter(Documento.id == id_doc).first()
@@ -94,6 +106,7 @@ class DocumentoRepo:
                         joinedload(Documento.operacion_comercial),
                         joinedload(Documento.estados),
                         joinedload(Documento.receptor),
+                        joinedload(Documento.complementos),
                     ).filter(Documento.id == id).first()
                 )
         
@@ -131,16 +144,44 @@ class DocumentoRepo:
         return doc
 
     def loadEstRes(self, data: dict):
-        for detalle in data["detalles"]:
-            doc = self.db.query(Documento).filter(
-                Documento.cdc == detalle["cdc"]
-            ).first()
+        try:
+            for detalle in data["detalles"]:
+                doc = self.db.query(Documento).filter(
+                    Documento.cdc_de == detalle["cdc"]
+                ).first()
 
-            if doc:
-                doc.estado_actual = detalle["est_res"]
-                doc.prot_aut = detalle["prot_aut"]
-                doc.cod_res = detalle["cod_res"]
-                doc.msg_res = detalle["msg_res"]
+                if doc:
+                    doc.estado_actual = detalle["est_res"]
+                    doc.prot_aut = detalle["prot_aut"]
+                    doc.cod_res = detalle["cod_res"]
+                    doc.msg_res = detalle["msg_res"]
+
+            self.db.commit()
+            logger.info(f"Estados actualizados para {len(data['detalles'])} documentos")
+        except Exception as e:
+            self.db.rollback()
+            logger.error(f"Error guardando estados: {str(e)}")
+            raise
+        
+    def loadXML(self, data , cdc):
+        
+        doc = self.db.query(Documento).filter(
+            Documento.cdc_de == cdc
+        ).first()
+
+            
+        if doc:
+            doc.xml_de = data
 
         self.db.commit()
         
+        
+    def getEmisorBycdc(self,cdc):
+        doc = (
+                    self.db.query(Documento)
+                    .options(
+                        joinedload(Documento.emisor)
+    
+                    ).filter(Documento.cdc_de == cdc).first()
+                )
+        return doc.emisor

@@ -3,6 +3,7 @@ import signal
 import sys
 import threading
 from pathlib import Path
+from daemon.estados_worker import EstadosWorker , EstadosWorkerConfig
 from daemon.worker import SifenWorker, WorkerConfig
 from daemon.event_worker import EventWorker, EventWorkerConfig  # Nuevo
 from config.setting import get_settings
@@ -12,12 +13,13 @@ import multiprocessing as mp
 class DemonSiffenApp:
     def __init__(self):
         self.factura_worker = None
-        self.evento_worker = None  # Nuevo
+        self.evento_worker = None  
+        self.estados_worker = None
         self.settings = get_settings()
         self.running = False
     
     def _setup_services(self):
-        """Inicializa ambos workers"""
+        """Inicializa  workers"""
         # Worker de facturas
         factura_config = WorkerConfig(
             interval=self.settings.PROCESSING_INTERVAL,
@@ -38,6 +40,16 @@ class DemonSiffenApp:
         self.evento_worker = EventWorker(evento_config)
         self.evento_worker.setup()
     
+        estados_config = EstadosWorkerConfig(
+            interval=30,  # Intervalo más corto para eventos
+            batch_size=20,
+            max_retries=3,
+            debug=self.settings.DEBUG,
+            estados="RECIBIDO_SIFEN"
+        )
+        self.estados_worker = EstadosWorker(estados_config)
+        self.estados_worker.setup()
+    
     
 
     def run_daemon(self):
@@ -56,20 +68,27 @@ class DemonSiffenApp:
             target=self.evento_worker.start,
             name="EventoWorker"
         )
-        
+        estados_process = mp.Process(
+            target=self.estados_worker.start,
+            name="EstadosWorker"
+        )
         try:
             # Iniciar ambos procesos
             factura_process.start()
             evento_process.start()
+            estados_process.start()
             
             # Esperar a que terminen
             factura_process.join()
             evento_process.join()
+            estados_process.join()
+            
             
         except KeyboardInterrupt:
             print("\n🛑 Interrupción recibida")
             factura_process.terminate()
             evento_process.terminate()
+            estados_process.terminate()
         finally:
             self.shutdown()
     
@@ -81,6 +100,8 @@ class DemonSiffenApp:
             self.factura_worker.stop()
         if self.evento_worker:
             self.evento_worker.stop()
+        if self.evento_worker:
+            self.estados_worker.stop()
     
     def shutdown(self):
         """Limpieza y shutdown"""
@@ -91,6 +112,8 @@ class DemonSiffenApp:
             self.factura_worker.stop()
         if self.evento_worker:
             self.evento_worker.stop()
+        if self.estados_worker:
+            self.estados_worker.stop()
         
         print("✅ Shutdown completado")
 

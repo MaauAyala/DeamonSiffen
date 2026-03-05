@@ -86,6 +86,20 @@ class LoteRepository:
             logger.error(f"Error al actualizar respuesta lote {lote_id}: {str(e)}")
             raise
     
+    def listar_todos_los_lotes(self, limit: int = 20) -> List[Lote]:
+        """
+        Lista todos los lotes para depuración
+        """
+        try:
+            lotes = self.db.query(Lote).order_by(Lote.fecha_envio.desc()).limit(limit).all()
+            logger.info(f"📋 Total de lotes en BD: {len(lotes)}")
+            for lote in lotes:
+                logger.info(f"   - ID: {lote.id}, Estado: '{lote.estado}', Nro SIFEN: {lote.nro_lote_sifen}")
+            return lotes
+        except SQLAlchemyError as e:
+            logger.error(f"Error al listar todos los lotes: {str(e)}")
+            raise
+    
     def listar_lotes_por_estado(self, estado: str, limit: int = 100) -> List[Lote]:
         """
         Lista lotes por estado
@@ -120,7 +134,7 @@ class LoteDocumentoRepository:
     def __init__(self, db: Session):
         self.db = db
     
-    def agregar_documento_a_lote(self, lote_id: int, documento_id: int, cdc: str) -> LoteDocumento:
+    def agregar_documento_a_lote(self, lote_id: int, documento_id: int) -> LoteDocumento:
         """
         Agrega un documento a un lote
         """
@@ -128,7 +142,6 @@ class LoteDocumentoRepository:
             lote_documento = LoteDocumento(
                 lote_id=lote_id,
                 documento_id=documento_id,
-                cdc=cdc
             )
             self.db.add(lote_documento)
             self.db.commit()
@@ -159,7 +172,6 @@ class LoteDocumentoRepository:
                 lote_doc = LoteDocumento(
                     lote_id=lote_id,
                     documento_id=doc_data['documento_id'],
-                    cdc=doc_data['cdc']
                 )
                 self.db.add(lote_doc)
                 lote_documentos.append(lote_doc)
@@ -312,3 +324,5 @@ class LoteDocumentoRepository:
             self.db.rollback()
             logger.error(f"Error al eliminar documento del lote: {str(e)}")
             raise
+        
+        

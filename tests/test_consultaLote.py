@@ -5,6 +5,6 @@ key_path = r"C:\Users\mauri\clave_privada_desenc.pem"
 s =SOAPClient(cert_path, key_path, True)
 
 idC = 1
-numL =5586437372040580010
+numL =55864373798251210
 
 consultaLote(s,idC,numL)

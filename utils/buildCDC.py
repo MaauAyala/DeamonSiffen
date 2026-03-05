@@ -44,7 +44,7 @@ def buildCDC(db, doc: Documento):
 
     dv =calcular_dv_11a(cdc)
     
-    doc.cdc_de = cdc+dv
+    doc.cdc_de = f'{cdc}{dv}'
     doc.ddvid = dv
     db.add(doc)
     db.commit()

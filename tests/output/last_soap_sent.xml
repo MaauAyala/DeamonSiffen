@@ -3,8 +3,8 @@
     <soap:Header/>
     <soap:Body>
         <rEnviConsLoteDe xmlns="http://ekuatia.set.gov.py/sifen/xsd">
-        <dId>1</dId>
-        <dProtConsLote>5586437372040580010</dProtConsLote>
+        <dId>30</dId>
+        <dProtConsLote>5586437372068840526</dProtConsLote>
         </rEnviConsLoteDe>
     </soap:Body>
     </soap:Envelope>

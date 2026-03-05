@@ -6,7 +6,7 @@ from pytest import Session
 from core.infraestructure.xml.sign_xml import signxml
 import decimal
 from core.infraestructure.database.database import get_db
-from domain.models.models import Documento, OperacionContado, Timbrado, OperacionCredito
+from domain.models.models import Documento, OperacionContado, Timbrado, OperacionCredito,Emisor as emisor
 from utils.hashQR import sha256_hash_bytes
 from utils.toInt import to_int_if_possible
 from utils.buildCDC import buildCDC
@@ -70,11 +70,22 @@ class XMLBuilder:
             self._build_gCamNCDE(DE, safe_get(doc, "nota_credito_debito"))
 
         self._build_gTotSub(DE, safe_get(doc, "totales"))
-
-        xml_unsigned = ET.tostring(DE, encoding="utf-8", pretty_print=False, xml_declaration=False)
+        # aca va gCamGen
+    
+        self._build_gCamGen(DE, safe_get(doc,"complementos"))
         
+        
+        xml_unsigned = ET.tostring(DE, encoding="utf-8", pretty_print=False, xml_declaration=False)
+        if not doc.emisor:
+             raise ValueError(f"Documento {doc.id} no tiene emisor asociado")
+
+        if not doc.emisor.cert_path or not doc.emisor.key_path:
+            raise ValueError(f"Emisor {doc.emisor.id} no tiene configurado certificado o clave")
+
+        if not doc.emisor.passwrd:
+            raise ValueError(f"Emisor {doc.emisor.id} no tiene contraseña configurada")
         try:
-            signature_node, digest_value_b64 = signxml(xml_unsigned)
+            signature_node, digest_value_b64 = signxml(xml_unsigned,doc.emisor.cert_path,doc.emisor.key_path,doc.emisor.passwrd)
         except Exception as e:
             raise Exception(f"Fallo durante la firma XML o extracción del DigestValue: {e}")
 
@@ -91,6 +102,13 @@ class XMLBuilder:
         
         return xml_signed
 
+    def _build_gCamGen(self,parent,compleCome):
+        if not compleCome :
+            return
+        gCamGen = ET.SubElement(parent, "gCamGen")
+        ET.SubElement(gCamGen, "dOrdCompra").text = str(safe_get(compleCome, "dordcompra"))
+        
+        
     def _build_gOpeDE(self, parent, ope):
         if not ope:
             warnings.warn("Documento sin operacion")
@@ -119,7 +137,9 @@ class XMLBuilder:
         ET.SubElement(gTimb, "dEst").text = safe_get(timb, "dest")
         ET.SubElement(gTimb, "dPunExp").text = safe_get(timb, "dpunexp")
         ET.SubElement(gTimb, "dNumDoc").text = str(safe_get(doc, "dnumdoc")).zfill(7)
-        #ET.SubElement(gTimb, "dSerieNum").text = safe_get(doc, "dserienum")
+        dserienum =safe_get(doc, "dserienum")
+        if dserienum:
+            ET.SubElement(gTimb, "dSerieNum").text = dserienum
         dfeinit = safe_get(timb, "dfeinit")
         if dfeinit:
             # Asume que dfeinit es un objeto datetime o similar
@@ -320,6 +340,7 @@ class XMLBuilder:
             ET.SubElement(gCamItem, "cUniMed").text = str(safe_get(item, "cunimed"))
             ET.SubElement(gCamItem, "dDesUniMed").text = safe_get(item, "ddesunimed")
             ET.SubElement(gCamItem, "dCantProSer").text = str(safe_get(item, "dcantproser"))
+            ET.SubElement(gCamItem, "dInfItem").text = str(safe_get(item, "dinfitem"))
 
             gValorItem = ET.SubElement(gCamItem, "gValorItem")
             ET.SubElement(gValorItem, "dPUniProSer").text = str(safe_get(item, "dpuniproser"))
@@ -408,7 +429,7 @@ class XMLBuilder:
         version = "150" 
         cdc =safe_get(doc, "cdc_de")
         dv = safe_get(doc, "ddvid")
-        Id=f'{cdc}{dv}'  # el CDC completo (44 dígitos)
+        Id=cdc  # el CDC completo (44 dígitos)
         dfeemide = safe_get(doc, "dfeemide")
         dFeEmiDE = dfeemide.strftime("%Y-%m-%dT%H:%M:%S").encode().hex() if dfeemide else ""
         receptor = safe_get(doc, "receptor")

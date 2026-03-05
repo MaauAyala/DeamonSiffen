@@ -7,18 +7,28 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.exceptions import InvalidKey
 
 
-def signxml(xml_bytes: bytes) -> tuple[etree.Element, str]:
+def signxml(xml_bytes: bytes,cert_path:str,key_path:str,password:str) -> tuple[etree.Element, str]:
     parser = etree.XMLParser(remove_blank_text=True)
     de_node = etree.fromstring(xml_bytes, parser=parser)
+    # Leer certificado y clave
+    try:
+        with open(cert_path, "rb") as f:
+            cert_pem = f.read()
 
+        with open(key_path, "rb") as f:
+            key = f.read()
+
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"No se encontró el archivo de certificado/clave: {e}")
+
+    #password_bytes = password.encode() if password else None
+    try:
+        cert = x509.load_pem_x509_certificate(cert_pem, default_backend())
+    except Exception as e:
+        raise ValueError(f"Certificado inválido: {str(e)}")
     # Cargar certificado y clave privada
-    with open(r"C:\Users\mauri\credenciales\certificado.pem", "rb") as f:
-        cert_pem = f.read()
-    with open(r"C:\Users\mauri\credenciales\clave_privada.pem", "rb") as f:
-        key = f.read()
-    password = b"7606"
 
-    cert = x509.load_pem_x509_certificate(cert_pem, default_backend())
+
     issuer_name = cert.issuer.rfc4514_string()
     serial_number = str(cert.serial_number)
 
@@ -37,7 +47,7 @@ def signxml(xml_bytes: bytes) -> tuple[etree.Element, str]:
         signed_root = signer.sign(
             de_node,
             key=key,
-            passphrase=password,
+            #passphrase=password_bytes,
             cert=cert_pem,
             reference_uri="#" + de_id
         )

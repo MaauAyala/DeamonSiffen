@@ -14,7 +14,6 @@ endpoint= os.environ["LOTE_ENDPOINT"]
 
 class LoteService:
   
-  endpoint = "https://sifen-test.set.gov.py/de/ws/async/recibe-lote.wsdl"
   
   def rEnvioLote(client, xml: bytes, id: int):
       """

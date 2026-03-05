@@ -1,0 +1,28 @@
+2026-02-22 23:36:26 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-22 23:36:26 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-22 23:36:26 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-22 23:36:26 - services.factura_service - INFO - Procesando 2 docs | Emisor 1 | Tipo 1
+2026-02-22 23:36:26 - services.factura_service - INFO - Lote creado en BD con ID: 18
+2026-02-22 23:36:26 - services.factura_service - ERROR - Error procesando documento 110: (psycopg2.errors.NotNullViolation) el valor nulo en la columna «cdc» de la relación «de_lote_documento» viola la restricción de no nulo
+DETAIL:  La fila que falla contiene (26, 18, 110, null).
+
+[SQL: INSERT INTO de_lote_documento (lote_id, documento_id) VALUES (%(lote_id)s, %(documento_id)s) RETURNING de_lote_documento.id]
+[parameters: {'lote_id': 18, 'documento_id': 110}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-02-22 23:41:44 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-22 23:41:44 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-22 23:41:44 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-22 23:41:44 - services.factura_service - INFO - Procesando 2 docs | Emisor 1 | Tipo 1
+2026-02-22 23:41:44 - services.factura_service - INFO - Lote creado en BD con ID: 19
+2026-02-22 23:41:44 - services.factura_service - DEBUG - Documento 110 preparado para lote 19
+2026-02-22 23:41:44 - services.factura_service - DEBUG - Documento 111 preparado para lote 19
+2026-02-22 23:41:44 - services.factura_service - INFO - XML de lote generado para lote 19
+2026-02-22 23:41:55 - services.factura_service - ERROR - Error enviando lote 19: HTTPSConnectionPool(host='sifen-test.set.gov.py', port=443): Max retries exceeded with url: /de/ws/async/recibe-lote.wsdl (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x00000223F9F046E0>: Failed to resolve 'sifen-test.set.gov.py' ([Errno 11001] getaddrinfo failed)"))
+2026-02-22 23:56:39 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-22 23:56:39 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-22 23:56:39 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-22 23:56:39 - services.factura_service - INFO - Procesando 1 docs | Emisor 1 | Tipo 1
+2026-02-22 23:56:39 - services.factura_service - INFO - Lote creado en BD con ID: 20
+2026-02-22 23:56:39 - services.factura_service - DEBUG - Documento 112 preparado para lote 20
+2026-02-22 23:56:39 - services.factura_service - INFO - XML de lote generado para lote 20
+2026-02-22 23:56:39 - services.factura_service - ERROR - Error enviando lote 20: HTTPSConnectionPool(host='sifen.set.gov.py', port=443): Max retries exceeded with url: /de/ws/async/recibe-lote.wsdl (Caused by SSLError('Client private key is encrypted, password is required'))

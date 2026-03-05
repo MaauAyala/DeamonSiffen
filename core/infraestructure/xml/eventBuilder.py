@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from domain.models.models import Evento
+from domain.models.models import Emisor, Evento
 from lxml import etree as ET
 from core.infraestructure.xml.sign_xml import signxml
 import decimal
@@ -15,7 +15,7 @@ class eventBuilder:
        "xsi": "http://www.w3.org/2001/XMLSchema-instance",       
     }
     
-    def build(self, evento: Evento = None):
+    def build(self, emisor : Emisor,evento: Evento = None):
 
         gGroupGesEve = ET.Element("gGroupGesEve", nsmap=self.NS)
         gGroupGesEve.set(
@@ -33,7 +33,22 @@ class eventBuilder:
         rGesEve.append(rEve)
 
         xml_bytes = ET.tostring(rEve, encoding="UTF-8", xml_declaration=False)
-        rEveFirmado, digest_value = signxml(xml_bytes)
+        
+        
+        
+        if not emisor:
+             raise ValueError(f"El Evento {evento.id} no tiene emisor asociado")
+
+        if not emisor.cert_path or not emisor.key_path:
+            raise ValueError(f"Emisor {emisor.id} no tiene configurado certificado o clave")
+
+        if not emisor.passwrd:
+            raise ValueError(f"Emisor {emisor.id} no tiene contraseña configurada")
+        try:
+            rEveFirmado, digest_value = signxml(xml_bytes,emisor.cert_path,emisor.key_path,emisor.passwrd)
+        except Exception as e:
+            raise Exception(f"Fallo durante la firma XML o extracción del DigestValue: {e}")
+
         rGesEve.append(rEveFirmado)
         
         return ET.tostring(gGroupGesEve, encoding="UTF-8", xml_declaration=False)

@@ -1,0 +1,25 @@
+2026-02-23 00:11:27 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-23 00:11:27 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-23 00:11:27 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-23 00:15:37 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-23 00:15:37 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-23 00:15:37 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-23 00:15:37 - services.factura_service - INFO - Procesando 1 docs | Emisor 1 | Tipo 1
+2026-02-23 00:15:37 - services.factura_service - INFO - Lote creado en BD con ID: 21
+2026-02-23 00:15:37 - services.factura_service - ERROR - Error procesando documento 112: Fallo durante la firma XML o extracción del DigestValue: Error durante la firma XML: Password was given but private key is not encrypted.
+2026-02-23 00:22:03 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-23 00:22:03 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-23 00:22:03 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-23 00:22:03 - services.factura_service - INFO - Procesando 1 docs | Emisor 1 | Tipo 1
+2026-02-23 00:22:03 - services.factura_service - INFO - Lote creado en BD con ID: 22
+2026-02-23 00:22:04 - services.factura_service - ERROR - Error procesando documento 112: Fallo durante la firma XML o extracción del DigestValue: Error durante la firma XML: Password was given but private key is not encrypted.
+2026-02-23 00:22:04 - services.factura_service - INFO - XML de lote generado para lote 22
+2026-02-23 00:22:05 - services.factura_service - INFO - Protocolo SIFEN 0 extraído para lote 22
+2026-02-23 00:22:05 - services.factura_service - INFO - Respuesta del lote 22 procesada
+2026-02-23 00:22:05 - services.factura_service - INFO - Lote 22 enviado exitosamente a SIFEN
+2026-02-23 11:13:40 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-23 11:13:40 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-23 11:13:40 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-23 11:31:36 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-23 11:31:36 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-23 11:31:36 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes

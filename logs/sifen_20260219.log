@@ -1,0 +1,22 @@
+2026-02-19 13:38:34 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-19 13:38:34 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-19 13:38:34 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-19 13:38:34 - services.factura_service - INFO - Procesando 3 documentos tipo 1                   
+2026-02-19 13:38:34 - services.factura_service - INFO - Lote creado en BD con ID: 11
+2026-02-19 13:38:35 - services.factura_service - DEBUG - Documento 103 preparado para lote 11
+2026-02-19 13:38:35 - services.factura_service - DEBUG - Documento 104 preparado para lote 11
+2026-02-19 13:38:35 - services.factura_service - DEBUG - Documento 105 preparado para lote 11
+2026-02-19 13:38:35 - services.factura_service - INFO - XML de lote generado para lote 11
+2026-02-19 13:38:37 - services.factura_service - INFO - Protocolo SIFEN 5586437372056168688 extraído para lote 11
+2026-02-19 13:38:37 - services.factura_service - INFO - Respuesta del lote 11 procesada
+2026-02-19 13:38:37 - services.factura_service - INFO - Lote 11 enviado exitosamente a SIFEN
+2026-02-19 13:47:31 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-19 13:47:31 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-19 13:47:31 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-19 13:47:32 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-19 13:47:32 - services.factura_service - INFO - Lote creado en BD con ID: 12
+2026-02-19 13:47:32 - services.factura_service - DEBUG - Documento 104 preparado para lote 12
+2026-02-19 13:47:32 - services.factura_service - INFO - XML de lote generado para lote 12
+2026-02-19 13:47:33 - services.factura_service - INFO - Protocolo SIFEN 5586437372056188100 extraído para lote 12
+2026-02-19 13:47:33 - services.factura_service - INFO - Respuesta del lote 12 procesada
+2026-02-19 13:47:33 - services.factura_service - INFO - Lote 12 enviado exitosamente a SIFEN

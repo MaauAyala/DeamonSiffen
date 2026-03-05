@@ -9,10 +9,9 @@ from services.response_service import getResponse
 from services.lote_service import LoteService
 from core.infraestructure.xml.xml_builder_lote import XMLBuilderLote
 from core.infraestructure.use_cases.enviDE import sendDE
-
-
+from domain.repositories.doc_repo import DocumentoRepo
 def test_generar_xml():
-    id_test = 99
+    id_test = 111
     output_dir = "tests/output"
     os.makedirs(output_dir, exist_ok=True)
 
@@ -28,6 +27,8 @@ def test_generar_xml():
     print("TIMBRADO ITIDE:", doc.timbrado.itide ,doc.timbrado.ddestide,"Numerodoc: ",doc.dnumdoc)
 
     xml_bytes = XMLBuilder(db).build(doc)
+
+    repo.loadXML(xml_bytes.decode('utf-8'),doc.cdc_de)
 
     # Guardar el XML individual
     with open("tests/output/onlyxml.xml", "wb") as f:

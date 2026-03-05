@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Numeric,Boolean , ForeignKey, SmallInteger, TIMESTAMP, func, Text
+from sqlalchemy import TEXT, Column, Integer, String, Date, Numeric,Boolean , ForeignKey, SmallInteger, TIMESTAMP, UniqueConstraint, func, Text
 from sqlalchemy.orm import relationship, declarative_base
 from core.infraestructure.database.database import Base
 
@@ -28,6 +28,7 @@ class Documento(Base):
     msg_res = Column(String(100))
     #iIndPres = Column(Integer)
     #dDesIndPres = Column(String(20))
+    xml_de = Column(TEXT)
 
     # Relaciones 
     emisor = relationship("Emisor", back_populates="documentos") 
@@ -42,9 +43,19 @@ class Documento(Base):
     consultas = relationship("ConsultaDocumento", back_populates="documento") 
     campos_fuera = relationship("CamposFueraFirma",back_populates="documento")# Consultas realizadas
     lotes = relationship("LoteDocumento", back_populates="documento")
-    
+    complementos = relationship("compleCome", back_populates="documento",uselist=False)
 
-    
+class compleCome(Base):
+    __tablename__ = "de_complementos"
+
+    id = Column(Integer, primary_key=True)
+    documento_id = Column(Integer, ForeignKey("de_documento.id"), nullable=False)
+
+    dordcompra = Column(String(15))
+    dordvta = Column(String(15))
+    aasiento = Column(String(10))
+
+    documento = relationship("Documento", back_populates="complementos")
 class Operacion(Base):
     __tablename__ = "de_operacion"
     id = Column(Integer, primary_key=True)
@@ -69,14 +80,21 @@ class Operacion(Base):
 
 class Timbrado(Base):
     __tablename__ = "de_timbrado"
+
     id = Column(Integer, primary_key=True)
+
+    emisor_id = Column(Integer, ForeignKey("de_emisor.id"), nullable=False)
+
     itide = Column(SmallInteger)
     ddestide = Column(String(50))
-    dnumtim = Column(String(20))
+    dnumtim = Column(String(20), nullable=False)
     dest = Column(String(5))
     dpunexp = Column(String(5))
     dfeinit = Column(Date)
-    activo = Column(Boolean)
+    activo = Column(Boolean, default=True)
+
+    emisor = relationship("Emisor", back_populates="timbrados")
+    documentos = relationship("Documento", back_populates="timbrado")
 
 
 class Emisor(Base):
@@ -101,10 +119,17 @@ class Emisor(Base):
     dtelemi = Column(String(15), nullable=False)
     demaile = Column(String(80), nullable=False)
     ddensuc = Column(String(30))
+    cert_path = Column(String(255), nullable=False)
+    key_path = Column(String(255), nullable=False)
+    passwrd = Column(String(255),nullable=False)
 
     documentos = relationship("Documento", back_populates="emisor", cascade="all, delete-orphan")
     actividades = relationship("EmisorActividad", back_populates="emisor")
-
+    timbrados = relationship(
+        "Timbrado",
+        back_populates="emisor",
+        cascade="all, delete-orphan"
+    )
 
 class EmisorActividad(Base):
     __tablename__ = "de_emisor_actividad"
@@ -443,13 +468,17 @@ class Lote(Base):
     __tablename__ = "de_lote"
 
     id = Column(Integer, primary_key=True)
+
+    emisorId = Column(Integer, ForeignKey("de_emisor.id"), nullable=False)
+
     nro_lote_sifen = Column(String(50), unique=True, nullable=True)
-    estado = Column(String(30), default="ENVIADO")  
+    estado = Column(String(30), default="ENVIADO")
     fecha_envio = Column(TIMESTAMP, default=func.now())
     xml_request = Column(Text)
     xml_response = Column(Text)
-    tipo_documento = Column(String(10)) 
-    
+    tipo_documento = Column(String(10))
+
+    emisor = relationship("Emisor")
     documentos = relationship("LoteDocumento", back_populates="lote")
 
 
@@ -457,13 +486,12 @@ class LoteDocumento(Base):
     __tablename__ = "de_lote_documento"
 
     id = Column(Integer, primary_key=True)
-    lote_id = Column(Integer, ForeignKey("de_lote.id", ondelete="CASCADE"))
-    documento_id = Column(Integer, ForeignKey("de_documento.id", ondelete="CASCADE"))
-    cdc = Column(String(44), nullable=False)
+    lote_id = Column(Integer, ForeignKey("de_lote.id", ondelete="CASCADE"), nullable=False)
+    documento_id = Column(Integer, ForeignKey("de_documento.id", ondelete="CASCADE"), nullable=False)
 
-    estado_resultado = Column(String(30))     # APROBADO / RECHAZADO
-    codigo_error = Column(String(10))
-    mensaje_error = Column(String(255))
-    
     lote = relationship("Lote", back_populates="documentos")
     documento = relationship("Documento", back_populates="lotes")
+
+    __table_args__ = (
+        UniqueConstraint("lote_id", "documento_id", name="uq_lote_documento"),
+    )

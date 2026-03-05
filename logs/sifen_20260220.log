@@ -1,0 +1,58 @@
+2026-02-20 10:29:16 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-20 10:29:16 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-20 10:29:16 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-20 10:29:16 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-20 10:29:16 - services.factura_service - INFO - Lote creado en BD con ID: 13
+2026-02-20 10:29:17 - services.factura_service - DEBUG - Documento 106 preparado para lote 13
+2026-02-20 10:29:17 - services.factura_service - INFO - XML de lote generado para lote 13
+2026-02-20 10:29:18 - services.factura_service - INFO - Protocolo SIFEN 5586437372058067935 extraído para lote 13
+2026-02-20 10:29:18 - services.factura_service - INFO - Respuesta del lote 13 procesada
+2026-02-20 10:29:18 - services.factura_service - INFO - Lote 13 enviado exitosamente a SIFEN
+2026-02-20 10:31:04 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-20 10:31:04 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-20 10:31:04 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-20 10:31:04 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-20 10:31:04 - services.factura_service - INFO - Lote creado en BD con ID: 14
+2026-02-20 10:31:04 - services.factura_service - DEBUG - Documento 107 preparado para lote 14
+2026-02-20 10:31:04 - services.factura_service - INFO - XML de lote generado para lote 14
+2026-02-20 10:31:06 - services.factura_service - INFO - Protocolo SIFEN 5586437372058073263 extraído para lote 14
+2026-02-20 10:31:06 - services.factura_service - INFO - Respuesta del lote 14 procesada
+2026-02-20 10:31:06 - services.factura_service - INFO - Lote 14 enviado exitosamente a SIFEN
+2026-02-20 17:06:02 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+es
+2026-02-20 17:06:02 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-20 17:06:02 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-20 17:06:02 - services.factura_service - INFO - Lote creado en BD con ID: 15
+2026-02-20 17:06:02 - services.factura_service - DEBUG - Documento 110 preparado para lote 15
+2026-02-20 17:06:02 - services.factura_service - INFO - XML de lote generado para lote 15
+2026-02-20 17:06:04 - services.factura_service - INFO - Protocolo SIFEN 5586437372059161098 extraído para lote 15
+2026-02-20 17:06:04 - services.factura_service - INFO - Respuesta del lote 15 procesada
+2026-02-20 17:06:04 - services.factura_service - INFO - Lote 15 enviado exitosamente a SIFEN
+2026-02-20 17:18:49 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-20 17:18:49 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-20 17:18:49 - domain.repositories.evento_repo - INFO - Se encontraron 1 eventos pendientes
+2026-02-20 17:18:49 - services.evento_service - INFO - Procesando evento 5
+2026-02-20 17:18:49 - domain.repositories.evento_repo - INFO - Fecha Firma del evento 5 actualizado a: 2026-02-20 17:16:49.742578
+2026-02-20 17:18:51 - domain.repositories.evento_repo - INFO - Evento 5 actualizado exitosamente
+2026-02-20 17:18:51 - domain.repositories.evento_repo - INFO - Estado del evento 5 actualizado a: PROCESADO
+2026-02-20 17:18:51 - services.evento_service - INFO - Evento 5 procesado OK
+2026-02-20 18:33:14 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-20 18:33:14 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-20 18:33:15 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-20 18:33:15 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-20 18:33:15 - services.factura_service - INFO - Lote creado en BD con ID: 16
+2026-02-20 18:33:15 - services.factura_service - DEBUG - Documento 110 preparado para lote 16
+2026-02-20 18:33:15 - services.factura_service - INFO - XML de lote generado para lote 16
+2026-02-20 18:33:17 - services.factura_service - INFO - Protocolo SIFEN 5586437372059381516 extraído para lote 16
+2026-02-20 18:33:17 - services.factura_service - INFO - Respuesta del lote 16 procesada
+2026-02-20 18:33:17 - services.factura_service - INFO - Lote 16 enviado exitosamente a SIFEN
+2026-02-20 18:36:51 - services.evento_service - INFO - Iniciando procesamiento de eventos pendientes
+2026-02-20 18:36:51 - services.factura_service - INFO - Iniciando procesamiento de documentos pendientes
+2026-02-20 18:36:51 - domain.repositories.evento_repo - INFO - Se encontraron 0 eventos pendientes
+2026-02-20 18:36:51 - services.factura_service - INFO - Procesando 1 documentos tipo 1                   
+2026-02-20 18:36:51 - services.factura_service - INFO - Lote creado en BD con ID: 17
+2026-02-20 18:36:51 - services.factura_service - DEBUG - Documento 111 preparado para lote 17
+2026-02-20 18:36:52 - services.factura_service - INFO - XML de lote generado para lote 17
+2026-02-20 18:36:52 - services.factura_service - INFO - Protocolo SIFEN 5586437372059388752 extraído para lote 17
+2026-02-20 18:36:52 - services.factura_service - INFO - Respuesta del lote 17 procesada
+2026-02-20 18:36:52 - services.factura_service - INFO - Lote 17 enviado exitosamente a SIFEN

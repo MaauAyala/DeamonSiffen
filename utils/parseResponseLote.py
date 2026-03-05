@@ -2,6 +2,11 @@ from datetime import datetime
 import xml.etree.ElementTree as ET
 
 
+def _get_text(parent, path, ns):
+    node = parent.find(path, ns)
+    return node.text if node is not None else None
+
+
 def parse_lote_response(xml_bytes: bytes):
     ns = {
         "env": "http://www.w3.org/2003/05/soap-envelope",
@@ -11,15 +16,20 @@ def parse_lote_response(xml_bytes: bytes):
     root = ET.fromstring(xml_bytes)
 
     body = root.find("env:Body", ns)
+    if body is None:
+        raise ValueError("SOAP Body no encontrado")
+
     response = body.find("ns2:rResEnviConsLoteDe", ns)
+    if response is None:
+        raise ValueError("rResEnviConsLoteDe no encontrado")
 
     # --- Cabecera lote ---
-    fec_proc = response.find("ns2:dFecProc", ns).text
-    cod_res_lot = response.find("ns2:dCodResLot", ns).text
-    msg_res_lot = response.find("ns2:dMsgResLot", ns).text
+    fec_proc_raw = _get_text(response, "ns2:dFecProc", ns)
+    cod_res_lot = _get_text(response, "ns2:dCodResLot", ns)
+    msg_res_lot = _get_text(response, "ns2:dMsgResLot", ns)
 
     lote_data = {
-        "fec_proc": datetime.fromisoformat(fec_proc),
+        "fec_proc": datetime.fromisoformat(fec_proc_raw) if fec_proc_raw else None,
         "cod_res_lot": cod_res_lot,
         "msg_res_lot": msg_res_lot,
         "detalles": []
@@ -27,13 +37,19 @@ def parse_lote_response(xml_bytes: bytes):
 
     # --- Documentos ---
     for item in response.findall("ns2:gResProcLote", ns):
-        cdc = item.find("ns2:id", ns).text
-        est_res = item.find("ns2:dEstRes", ns).text
-        prot_aut = item.find("ns2:dProtAut", ns).text
+
+        cdc = _get_text(item, "ns2:id", ns)
+        est_res = _get_text(item, "ns2:dEstRes", ns)
+        prot_aut = _get_text(item, "ns2:dProtAut", ns)
 
         g_res_proc = item.find("ns2:gResProc", ns)
-        cod_res = g_res_proc.find("ns2:dCodRes", ns).text
-        msg_res = g_res_proc.find("ns2:dMsgRes", ns).text
+
+        cod_res = None
+        msg_res = None
+
+        if g_res_proc is not None:
+            cod_res = _get_text(g_res_proc, "ns2:dCodRes", ns)
+            msg_res = _get_text(g_res_proc, "ns2:dMsgRes", ns)
 
         lote_data["detalles"].append({
             "cdc": cdc,

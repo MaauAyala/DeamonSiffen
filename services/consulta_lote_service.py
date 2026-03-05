@@ -1,6 +1,11 @@
-endpoint  = "https://sifen.set.gov.py/de/ws/consultas/consulta-lote.wsdl?"
-
+import os
+from dotenv import load_dotenv
 from core.infraestructure.soap.soap_client import SOAPClient
+
+load_dotenv()
+endpoint= os.environ["CONSULTA_LOTE_ENDPOINT"]
+
+
 
 
 
