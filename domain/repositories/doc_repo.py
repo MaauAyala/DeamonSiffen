@@ -185,3 +185,62 @@ class DocumentoRepo:
                     ).filter(Documento.cdc_de == cdc).first()
                 )
         return doc.emisor
+    
+    def getAprobados(self, batch_size: int = 50):
+        """Obtiene documentos aprobados por SIFEN que aún no tienen PDF generado"""
+        docs = (
+            self.db.query(Documento)
+            .options(
+                joinedload(Documento.emisor),
+                joinedload(Documento.timbrado),
+                joinedload(Documento.receptor),
+                joinedload(Documento.items),
+                joinedload(Documento.totales),
+                joinedload(Documento.operacion),
+            )
+            .filter(
+                Documento.estado_actual == "Aprobado",
+                Documento.xml_de != None,  # Asegurar que tiene XML
+            )
+            .order_by(Documento.id.asc())
+            .limit(batch_size)
+            .all()
+        )
+
+        # Cargar Timbrado y Emisor por ID
+        for doc in docs:
+            id_timbrado = doc.idtimbrado 
+            if id_timbrado:
+                doc.timbrado = self.db.query(Timbrado).filter(Timbrado.id == id_timbrado).first()
+            else:
+                doc.timbrado = None
+                
+            drucem = doc.drucem 
+            if drucem:
+                doc.emisor = (
+                    self.db.query(Emisor)
+                    .options(joinedload(Emisor.actividades))
+                    .filter(Emisor.drucem == drucem)
+                    .first()
+                )
+            else:
+                doc.emisor = None
+        
+        return docs
+    
+    def marcarPDFGenerado(self, id_doc):
+        """Marca un documento como PDF generado"""
+        try:
+            doc = self.db.query(Documento).filter(Documento.id == id_doc).first()
+            if doc:
+                # Crear un nuevo estado para rastrear PDFs generados
+                doc.estado_actual = 'PDF_GENERADO'
+                # Por ahora, mantengamos APROBADO pero podríamos crear uno nuevo como "PDF_GENERADO"
+                logger.info(f"Documento {id_doc} procesado para PDF")
+                self.db.commit()
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"Error marcando PDF generado para documento {id_doc}: {str(e)}")
+            self.db.rollback()
+            return False

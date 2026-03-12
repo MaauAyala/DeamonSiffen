@@ -134,6 +134,7 @@ def generar_pdf_factura(data: dict, output_path="factura.pdf"):
         <b>Nombre o razón social:</b> {data['receptor']['nombre']}<br/>
         <b>Dirección:</b> <br/>
         <b>Teléfono:</b> {data['receptor']['telefono']}<br/>
+        <b>Info : </b> {data['infoemi']}
                    """,normal)
         ]
     ]

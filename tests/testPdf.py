@@ -8,7 +8,7 @@ from utils.buildReport import generar_pdf_factura
 db = next(get_db())
 
 def test_parse_xml():
-    id = 120
+    id = 121
     doc = DocumentoRepo(db=db).getDE(id=id)
 
     xml= doc.xml_de

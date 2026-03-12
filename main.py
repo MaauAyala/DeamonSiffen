@@ -6,6 +6,7 @@ from pathlib import Path
 from daemon.estados_worker import EstadosWorker , EstadosWorkerConfig
 from daemon.worker import SifenWorker, WorkerConfig
 from daemon.event_worker import EventWorker, EventWorkerConfig  # Nuevo
+from daemon.pdf_worker import PDFWorker, PDFWorkerConfig  # Nuevo worker de PDFs
 from config.setting import get_settings
 import multiprocessing as mp
 
@@ -15,6 +16,7 @@ class DemonSiffenApp:
         self.factura_worker = None
         self.evento_worker = None  
         self.estados_worker = None
+        self.pdf_worker = None  # Nuevo worker de PDFs
         self.settings = get_settings()
         self.running = False
     
@@ -49,11 +51,21 @@ class DemonSiffenApp:
         )
         self.estados_worker = EstadosWorker(estados_config)
         self.estados_worker.setup()
+        
+        # Worker de PDFs para documentos aprobados
+        pdf_config = PDFWorkerConfig(
+            interval=120,  # Intervalo de 2 minutos
+            batch_size=50,
+            max_retries=3,
+            debug=self.settings.DEBUG
+        )
+        self.pdf_worker = PDFWorker(pdf_config)
+        self.pdf_worker.setup()
     
     
 
     def run_daemon(self):
-        """Ejecuta ambos workers usando multiprocessing"""
+        """Ejecuta todos los workers usando multiprocessing"""
         if not self.factura_worker or not self.evento_worker:
             self._setup_services()
         
@@ -72,16 +84,22 @@ class DemonSiffenApp:
             target=self.estados_worker.start,
             name="EstadosWorker"
         )
+        pdf_process = mp.Process(
+            target=self.pdf_worker.start,
+            name="PDFWorker"
+        )
         try:
-            # Iniciar ambos procesos
+            # Iniciar todos los procesos
             factura_process.start()
             evento_process.start()
             estados_process.start()
+            pdf_process.start()
             
             # Esperar a que terminen
             factura_process.join()
             evento_process.join()
             estados_process.join()
+            pdf_process.join()
             
             
         except KeyboardInterrupt:
@@ -89,6 +107,7 @@ class DemonSiffenApp:
             factura_process.terminate()
             evento_process.terminate()
             estados_process.terminate()
+            pdf_process.terminate()
         finally:
             self.shutdown()
     
@@ -100,8 +119,10 @@ class DemonSiffenApp:
             self.factura_worker.stop()
         if self.evento_worker:
             self.evento_worker.stop()
-        if self.evento_worker:
+        if self.estados_worker:
             self.estados_worker.stop()
+        if self.pdf_worker:
+            self.pdf_worker.stop()
     
     def shutdown(self):
         """Limpieza y shutdown"""
@@ -114,6 +135,8 @@ class DemonSiffenApp:
             self.evento_worker.stop()
         if self.estados_worker:
             self.estados_worker.stop()
+        if self.pdf_worker:
+            self.pdf_worker.stop()
         
         print("✅ Shutdown completado")
 

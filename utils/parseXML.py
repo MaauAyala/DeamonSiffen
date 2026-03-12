@@ -22,6 +22,7 @@ def parse_sifen_xml(xml_string: str) -> dict:
 
     timb = de.find("s:gTimb", ns)
     gDtipDE =de.find("s:gDtipDE",ns)
+    gOpeDE = de.find("s:gOpeDE",ns)
     gCamCond =gDtipDE.find("s:gCamCond",ns)
 
     dat_gral = de.find("s:gDatGralOpe", ns)
@@ -83,6 +84,7 @@ def parse_sifen_xml(xml_string: str) -> dict:
         "condicion_venta":gCamCond.findtext("s:dDCondOpe",default=None,namespaces=ns),
         "descr_moneda":gOpeCom.findtext("s:dDesMoneOpe",default=None,namespaces=ns),
         "tipo_operacion":gOpeCom.findtext("s:dDesTipTra",default=None,namespaces=ns),
+        "infoemi":gOpeDE.findtext("s:dInfoEmi",default=None,namespaces=ns),
         
         "timbrado": {
             "numero_timbrado": timb.findtext("s:dNumTim", default=None, namespaces=ns),
